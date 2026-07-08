@@ -3,1197 +3,1114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A structured PCB design learning roadmap from beginner to production-ready level.">
-<title>PCB Design Learning Roadmap</title>
+<title>PCB Design Learning Path — Beginner to Intermediate</title>
+<meta name="description" content="A structured PCB design learning path using KiCad, authoritative sources, exercises, answers, checklists, and sourced illustrations.">
 <style>
 :root {
-  --bg:#f4f7fb; --surface:#ffffff; --surface-2:#edf2f8; --text:#142033;
-  --muted:#5c6b7e; --line:#d6dfeb; --accent:#1769aa; --accent-2:#0b4f82;
-  --good:#20734b; --warn:#9a5b00; --shadow:0 12px 32px rgba(31,51,73,.10);
+  --bg:#f5f7fb; --paper:#ffffff; --text:#18212f; --muted:#5d6978;
+  --line:#dce2ea; --accent:#1668dc; --accent2:#0b8f72; --warn:#9a5a00;
+  --soft:#eef5ff; --soft2:#eaf8f4; --shadow:0 8px 30px rgba(20,35,55,.08);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-a{color:var(--accent-2);text-underline-offset:3px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.62 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:#eef1f5;border-radius:5px;padding:.08rem .32rem;font-size:.92em}
 button,input{font:inherit}
-.hero{background:linear-gradient(135deg,#0c3152,#1769aa);color:white;padding:52px 24px 42px}
-.hero-inner{max-width:1180px;margin:auto}
-.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-weight:800;font-size:.78rem;opacity:.8}
-h1{font-size:clamp(2rem,5vw,4.1rem);line-height:1.05;margin:.45rem 0 1rem;max-width:900px}
-.hero p{max-width:820px;font-size:1.08rem;color:#e7f1fb;margin:0}
-.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.hero-meta span{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.09);padding:7px 11px;border-radius:999px;font-size:.9rem}
-.layout{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:285px minmax(0,1fr);gap:26px;padding:28px 22px 70px}
-.sidebar{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}
-.sidebar h2{font-size:1.05rem;margin:0 0 10px}
-.search{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:13px;background:#fff;color:var(--text)}
-.toc{display:grid;gap:4px}
-.toc a{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start;text-decoration:none;color:var(--text);padding:8px;border-radius:9px;font-size:.88rem;line-height:1.25}
-.toc a:hover{background:var(--surface-2)}
-.toc a span{font-weight:800;color:var(--accent)}
-.progress-box{margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
-.progress-row{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;margin-bottom:7px}
-.progress-track{height:9px;background:var(--surface-2);border-radius:999px;overflow:hidden}
-.progress-bar{height:100%;width:0;background:var(--good);transition:width .25s}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:#101827;color:white;padding:24px 18px}
+.brand{font-weight:800;font-size:1.2rem;line-height:1.25;margin-bottom:6px}
+.brand-sub{color:#aeb9c9;font-size:.9rem;margin-bottom:18px}
+.sidebar input{width:100%;border:1px solid #344157;border-radius:9px;background:#182338;color:white;padding:10px 12px;margin-bottom:14px}
+.sidebar nav{display:grid;gap:5px}
+.sidebar nav a{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start;color:#dce5f2;padding:9px;border-radius:9px;font-size:.9rem;line-height:1.3}
+.sidebar nav a:hover,.sidebar nav a.active{background:#22314a;text-decoration:none}
+.sidebar nav span{display:grid;place-items:center;background:#2e4161;border-radius:999px;width:24px;height:24px;font-weight:700}
+.progress-box{margin-top:18px;padding:12px;border:1px solid #344157;border-radius:10px;color:#dce5f2}
+.progress-line{height:7px;background:#26344a;border-radius:99px;overflow:hidden;margin:9px 0}
+.progress-line>div{height:100%;width:0;background:#4fd1a5}
+.side-actions{display:flex;gap:8px;margin-top:10px}
+.side-actions button{flex:1;border:1px solid #40516b;background:#1d2a40;color:white;border-radius:8px;padding:7px;cursor:pointer}
 main{min-width:0}
-.notice{background:#fff8e8;border:1px solid #f0d49d;border-left:5px solid var(--warn);border-radius:12px;padding:15px 17px;margin-bottom:22px}
-.notice strong{color:#744400}
-.topic{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-bottom:24px;overflow:hidden;scroll-margin-top:18px}
-.topic-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;padding:23px 25px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#fbfdff)}
-.level{display:inline-block;color:var(--accent-2);background:#e7f2fb;border:1px solid #c9e2f5;padding:4px 9px;border-radius:999px;font-size:.78rem;font-weight:800}
-.topic h2{margin:.55rem 0 0;font-size:clamp(1.35rem,3vw,2rem);line-height:1.2}
-.complete-label{display:flex;gap:8px;align-items:center;white-space:nowrap;font-size:.86rem;font-weight:700;color:var(--muted);padding-top:5px}
-.complete-box{width:18px;height:18px;accent-color:var(--good)}
-.topic-body{padding:24px 25px 28px}
-.topic-body h3{font-size:1.05rem;margin:25px 0 11px}
-.topic-body h3:first-child{margin-top:0}
-.summary-panel{background:var(--surface-2);border-radius:13px;padding:18px 20px}
-.summary-panel ul{margin:8px 0 0;padding-left:21px}
-.summary-panel li+li{margin-top:7px}
-.milestone{margin:15px 0 0;border-top:1px solid var(--line);padding-top:13px;color:var(--good)}
-.examples-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.example-card{margin:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fbfdff}
-.example-card figcaption{padding:10px 13px;font-weight:800;border-bottom:1px solid var(--line)}
-.svg-wrap{padding:8px;min-height:210px;display:flex;align-items:center}
-svg{width:100%;height:auto;max-height:210px}
-svg text{font:12px Inter,system-ui,sans-serif;fill:#24364a;text-anchor:middle}
-svg .wire,svg .trace,svg .arrow,svg .dimension,svg .thermal,svg .tuning{fill:none;stroke:#284a69;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-svg .arrow{marker-end:url(#arrowhead)}
-svg .dashed{stroke-dasharray:7 6}
-svg .component{fill:#e6eef7;stroke:#416785;stroke-width:2}
-svg .board{fill:#d8eee1;stroke:#317152;stroke-width:2}
-svg .copper,svg .pad{fill:#d69a31;stroke:#9d6811;stroke-width:1.5}
-svg .dielectric{fill:#dfe8f2;stroke:#8ca0b5;stroke-width:1.3}
-svg .plane{fill:#547b9b;stroke:#345a78}
-svg .via{fill:#9cd0df;stroke:#276d83;stroke-width:2}
-svg .via.ground{fill:#d0e5ed}
-svg .junction{fill:#284a69}
-svg .flowbox rect{fill:#eef5fb;stroke:#39729f;stroke-width:2}
-svg .label{fill:#fff3c8;stroke:#a0781c;stroke-width:2}
-svg .pin1{fill:#d64545}
-svg .connector{fill:#efe3f7;stroke:#79518d;stroke-width:2}
-svg .keepout{fill:#fae4e4;stroke:#b04c4c;stroke-width:2;stroke-dasharray:7 5}
-svg .hole{fill:#fff;stroke:#546474;stroke-width:5}
-svg .block{fill:#e6eef7;stroke:#416785;stroke-width:2}
-svg .block.quiet{fill:#e8f3ea;stroke:#438052}
-svg .block.noisy{fill:#f8e5df;stroke:#a65842}
-svg .trace.top{stroke:#c77e12;stroke-width:8}
-svg .trace.bottom{stroke:#2773ad;stroke-width:8;stroke-dasharray:9 5}
-svg .zone{fill:#e4ad4d;stroke:#9d6811;stroke-width:2;opacity:.72}
-svg .clearance{fill:#fbfdff;stroke:#a77620;stroke-width:1.5}
-svg .thermal{stroke:#9d6811;stroke-width:8}
-svg .trace.power{stroke:#c84b45;stroke-width:8}
-svg .trace.return{stroke:#2c668f;stroke-width:8}
-svg .dimension{stroke:#66788a;stroke-width:1.8;stroke-dasharray:5 4}
-svg .epad{fill:#d69a31;stroke:#9d6811;stroke-width:2}
-svg .via-array circle{fill:#87bdd0;stroke:#276d83;stroke-width:2}
-svg .trace.diff{stroke:#6a4ea0;stroke-width:6}
-svg .tuning{stroke:#6a4ea0;stroke-width:5}
-svg .folder{fill:#e8f2fb;stroke:#41729a;stroke-width:2}
-svg .file rect{fill:#fff;stroke:#6f8498;stroke-width:1.7}
-.exercise-list{display:grid;gap:10px}
-.exercise{border:1px solid var(--line);border-radius:11px;padding:13px 14px;background:#fff}
-.exercise-q{display:flex;gap:10px;align-items:flex-start}
-.exercise-q p{margin:1px 0 8px}
-.qnum{display:grid;place-items:center;min-width:25px;height:25px;border-radius:50%;background:var(--accent);color:#fff;font-size:.78rem;font-weight:800}
-.answer-toggle{border:1px solid #b9cad9;background:#f3f8fc;color:var(--accent-2);border-radius:8px;padding:6px 10px;font-size:.82rem;font-weight:800;cursor:pointer}
-.answer-toggle:hover{background:#e7f2fb}
-.answer{margin-top:10px;background:#edf8f1;border-left:4px solid var(--good);padding:10px 12px;border-radius:7px}
-.sources{margin-top:21px;border-top:1px solid var(--line);padding-top:15px}
-.sources summary{cursor:pointer;font-weight:800;color:var(--accent-2)}
-.sources li{margin:8px 0}
-.no-results{display:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;color:var(--muted)}
-.footer{max-width:1280px;margin:-40px auto 0;padding:0 22px 45px;color:var(--muted);font-size:.88rem}
-@media(max-width:900px){
-  .layout{grid-template-columns:1fr}
-  .sidebar{position:relative;top:auto;max-height:none}
-  .toc{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .examples-grid{grid-template-columns:1fr}
+.hero{padding:58px clamp(24px,6vw,86px) 44px;background:linear-gradient(135deg,#0e2a52,#145a8b 56%,#0b806b);color:white}
+.hero-inner{max-width:1120px;margin:auto}
+.hero .kicker{text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:#bbd9ff;font-size:.8rem}
+.hero h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.05;margin:.35rem 0 1rem;max-width:900px}
+.hero p{max-width:850px;color:#e3efff;font-size:1.08rem}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.hero-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:16px}
+.hero-card strong{display:block;font-size:1.15rem}
+.content{max-width:1160px;margin:auto;padding:34px clamp(18px,4vw,56px) 80px}
+.notice{background:#fff7e9;border:1px solid #efd19d;border-left:5px solid #d88709;border-radius:10px;padding:16px 18px;margin-bottom:28px}
+.roadmap{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:32px}
+.roadmap h2{margin-top:0}
+.roadmap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.roadmap-grid a{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fafcff;display:block}
+.roadmap-grid b{display:block;color:var(--text)}
+.topic{scroll-margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin:0 0 30px;overflow:hidden}
+.topic-heading{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:26px 28px;background:linear-gradient(90deg,var(--soft),white)}
+.topic-number{width:54px;height:54px;border-radius:14px;background:var(--accent);color:white;display:grid;place-items:center;font-size:1.5rem;font-weight:800}
+.eyebrow{margin:0;color:var(--accent);font-weight:750;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}
+.topic h2{margin:.2rem 0 .3rem;font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.2}
+.milestone{margin:0;color:var(--muted)}
+.lesson-block{border-top:1px solid var(--line)}
+.lesson-block>summary{cursor:pointer;font-weight:800;padding:17px 28px;background:#fbfcfe;list-style:none}
+.lesson-block>summary::-webkit-details-marker{display:none}
+.lesson-block>summary::before{content:"＋";display:inline-block;width:24px;color:var(--accent)}
+.lesson-block[open]>summary::before{content:"−"}
+.theory-list{margin:0;padding:18px 34px 26px 58px}
+.theory-list li{padding:8px 0 13px}
+.theory-list h4{margin:0 0 3px;font-size:1.02rem}
+.theory-list div{color:#344152}
+.checklist{display:grid;gap:8px;padding:18px 28px 26px}
+.check-row{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fff}
+.check-row input{margin-top:4px;width:17px;height:17px}
+.check-row:has(input:checked){background:var(--soft2);border-color:#a9dacc}
+.check-row:has(input:checked) span{text-decoration:line-through;color:#50645f}
+.source-note{padding:0 28px;color:var(--muted);font-size:.92rem}
+.image-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:12px 28px 28px}
+.image-card{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:white}
+.image-card>a{height:220px;display:flex;align-items:center;justify-content:center;background:#eef2f6;padding:8px}
+.image-card img{max-width:100%;max-height:100%;object-fit:contain}
+.image-fallback{display:none;text-align:center;color:var(--muted);padding:20px}
+.image-card figcaption{padding:13px}
+.image-card figcaption p{font-size:.91rem;color:#475466;margin:.35rem 0 .55rem}
+.exercise-list{padding:12px 28px 28px;display:grid;gap:10px}
+.exercise{border:1px solid var(--line);border-radius:10px;background:white}
+.exercise summary{cursor:pointer;padding:13px 15px;font-weight:650}
+.exercise summary span{display:inline-block;background:var(--soft);color:var(--accent);padding:2px 7px;border-radius:6px;margin-right:8px;font-size:.78rem}
+.answer{border-top:1px solid var(--line);padding:14px 16px;background:#fafcff;color:#344152}
+.sources{padding:10px 46px 26px}
+.sources li{padding:4px 0}
+footer{text-align:center;color:var(--muted);padding:26px}
+.hidden-topic{display:none}
+@media(max-width:980px){
+ .layout{grid-template-columns:1fr}
+ .sidebar{position:relative;height:auto}
+ .sidebar nav{grid-template-columns:repeat(2,1fr)}
+ .hero-grid,.roadmap-grid,.image-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:600px){
-  .hero{padding:38px 18px 34px}
-  .layout{padding:18px 12px 55px}
-  .topic-head{padding:19px 17px;flex-direction:column}
-  .topic-body{padding:19px 17px 23px}
-  .toc{grid-template-columns:1fr}
+@media(max-width:620px){
+ .sidebar nav,.hero-grid,.roadmap-grid,.image-grid{grid-template-columns:1fr}
+ .hero{padding:38px 20px}
+ .content{padding:22px 12px 60px}
+ .topic-heading{grid-template-columns:48px 1fr;padding:20px 16px}
+ .topic-number{width:42px;height:42px}
+ .lesson-block>summary{padding:15px 16px}
+ .theory-list{padding:12px 20px 20px 42px}
+ .checklist,.exercise-list,.image-grid{padding-left:14px;padding-right:14px}
 }
 @media print{
-  body{background:white;font-size:11pt}
-  .hero{background:white;color:black;padding:0 0 20px}
-  .hero p{color:black}
-  .hero-meta,.sidebar,.complete-label,.answer-toggle{display:none!important}
-  .layout{display:block;padding:0}
-  .topic{box-shadow:none;break-inside:avoid}
-  .answer[hidden]{display:block!important}
-  a{color:black;text-decoration:none}
+ .layout{display:block}
+ .sidebar{display:none}
+ .hero{background:white;color:black;padding:20px 0}
+ .hero p,.hero .kicker{color:#333}
+ .hero-card{border:1px solid #aaa}
+ .content{max-width:none;padding:10px}
+ .topic{box-shadow:none;break-inside:avoid}
+ details{display:block}
+ details>summary{display:none}
+ .lesson-block:not([open])>*:not(summary){display:block}
+ a{color:black;text-decoration:none}
 }
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute"><defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#284a69"/></marker></defs></svg>
-<header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">Self-contained learning guide</div>
-    <h1>PCB Design: Beginner-to-Production Roadmap</h1>
-    <p>Designed for a first-year university student who already understands basic schematics, component functions and electronic hardware. The sequence moves from first principles to a board you can manufacture, assemble and debug.</p>
-    <div class="hero-meta">
-      <span>12 ordered topics</span><span>24 inline illustrations</span><span>60 exercises with answers</span><span>60 curated source links</span><span>No external libraries required</span>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand">PCB Design Learning Path</div>
+  <div class="brand-sub">Beginner → intermediate · KiCad 10</div>
+  <input id="search" type="search" placeholder="Filter topics…">
+  <nav><a href="#topic-1" data-nav="1"><span>1</span>PCB fundamentals, workflow, and KiCad setup</a>
+<a href="#topic-2" data-nav="2"><span>2</span>Schematic capture and electrical correctness</a>
+<a href="#topic-3" data-nav="3"><span>3</span>Datasheets, components, packages, footprints, and libraries</a>
+<a href="#topic-4" data-nav="4"><span>4</span>Stackup, fabrication limits, and design rules</a>
+<a href="#topic-5" data-nav="5"><span>5</span>Component placement, power integrity, decoupling, and grounding</a>
+<a href="#topic-6" data-nav="6"><span>6</span>Routing, vias, copper zones, and return paths</a>
+<a href="#topic-7" data-nav="7"><span>7</span>Signal integrity, differential pairs, EMI, and ESD</a>
+<a href="#topic-8" data-nav="8"><span>8</span>DFM/DFA, fabrication outputs, assembly, bring-up, and debugging</a></nav>
+  <div class="progress-box">
+    <strong>Exit-criteria progress</strong>
+    <div class="progress-line"><div id="progressBar"></div></div>
+    <span id="progressText">0 / 0 completed</span>
+    <div class="side-actions">
+      <button id="printBtn" type="button">Print</button>
+      <button id="resetBtn" type="button">Reset</button>
     </div>
   </div>
+</aside>
+<main>
+<header class="hero">
+<div class="hero-inner">
+  <div class="kicker">University first-year learning plan</div>
+  <h1>Learn PCB design by completing the full engineering loop</h1>
+  <p>This course assumes you already understand basic schematics and common components. It uses
+  KiCad 10 because it is free, cross-platform, and supports schematic capture, PCB layout, DRC,
+  3D inspection, and fabrication outputs in one project workflow.</p>
+  <div class="hero-grid">
+    <div class="hero-card"><strong>8 ordered topics</strong>Fundamentals through fabrication and bring-up</div>
+    <div class="hero-card"><strong>40 exercises</strong>Five worked exercises per topic</div>
+    <div class="hero-card"><strong>24 real illustrations</strong>Existing official-source examples; no AI imagery</div>
+  </div>
+</div>
 </header>
 
-<div class="layout">
-  <aside class="sidebar">
-    <h2>Topics</h2>
-    <input id="search" class="search" type="search" placeholder="Filter topics…" aria-label="Filter topics">
-    <nav class="toc" aria-label="PCB roadmap"><a href="#topic-1"><span>01</span>PCB anatomy and the complete design workflow</a><a href="#topic-2"><span>02</span>EDA projects and schematic capture</a><a href="#topic-3"><span>03</span>Datasheets, symbols, footprints and the BOM</a><a href="#topic-4"><span>04</span>Power circuits, decoupling and schematic reliability</a><a href="#topic-5"><span>05</span>Board outline, layer stack-up and design rules</a><a href="#topic-6"><span>06</span>Component placement</a><a href="#topic-7"><span>07</span>Routing fundamentals, vias and copper zones</a><a href="#topic-8"><span>08</span>Power distribution, grounding, current and thermal design</a><a href="#topic-9"><span>09</span>Analog, mixed-signal interfaces and protection</a><a href="#topic-10"><span>10</span>Signal integrity and high-speed routing</a><a href="#topic-11"><span>11</span>EMC, EMI and ESD-aware layout</a><a href="#topic-12"><span>12</span>DFM/DFA, fabrication files, assembly and board bring-up</a></nav>
-    <div class="progress-box">
-      <div class="progress-row"><span>Learning progress</span><span id="progressText">0 / 12</span></div>
-      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-    </div>
-  </aside>
-
-  <main>
-    <div class="notice">
-      <strong>Important:</strong> trace width, clearance, via size, impedance and thermal limits are not universal constants. Set them from the chosen manufacturer’s capabilities, actual stack-up, voltage/current, temperature target, component datasheets and applicable IPC or safety requirements.
-    </div>
-    <div id="noResults" class="no-results">No topic matches your search.</div>
-    
-    <section class="topic" id="topic-1">
-      <div class="topic-head">
-        <div>
-          <span class="level">1 — Foundation</span>
-          <h2>1. PCB anatomy and the complete design workflow</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="1">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Know the physical elements: substrate, copper, solder mask, silkscreen, pads, traces, vias and holes.</li><li>Distinguish a bare PCB from a populated PCBA.</li><li>Use a controlled workflow: requirements → schematic/ERC → placement/routing → DRC/review → manufacturing → assembly/test.</li><li>Treat the schematic as the logical design and the layout as its physical implementation.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Explain a simple two-layer board and the files produced at each design stage.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>PCB layer cross-section</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 420 190" role="img" aria-label="Simplified PCB layer cross-section">
-      <rect x="45" y="25" width="330" height="18" rx="5" class="copper"/>
-      <rect x="45" y="45" width="330" height="34" rx="5" class="dielectric"/>
-      <rect x="45" y="81" width="330" height="8" rx="4" class="copper"/>
-      <rect x="45" y="91" width="330" height="34" rx="5" class="dielectric"/>
-      <rect x="45" y="127" width="330" height="18" rx="5" class="copper"/>
-      <rect x="185" y="20" width="28" height="132" rx="8" class="via"/>
-      <text x="52" y="39">Top copper / pads / traces</text>
-      <text x="52" y="68">FR-4 dielectric</text>
-      <text x="52" y="88">Inner plane</text>
-      <text x="52" y="114">FR-4 dielectric</text>
-      <text x="52" y="141">Bottom copper</text>
-      <text x="220" y="171">Plated via connects layers</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>End-to-end workflow</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 180" role="img" aria-label="PCB design workflow">
-      <g class="flowbox"><rect x="10" y="54" width="85" height="52" rx="10"/><text x="52" y="76">Requirements</text><text x="52" y="94">& parts</text></g>
-      <g class="flowbox"><rect x="115" y="54" width="85" height="52" rx="10"/><text x="157" y="84">Schematic</text></g>
-      <g class="flowbox"><rect x="220" y="54" width="85" height="52" rx="10"/><text x="262" y="76">Placement</text><text x="262" y="94">& routing</text></g>
-      <g class="flowbox"><rect x="325" y="54" width="85" height="52" rx="10"/><text x="367" y="76">ERC / DRC</text><text x="367" y="94">review</text></g>
-      <g class="flowbox"><rect x="430" y="54" width="80" height="52" rx="10"/><text x="470" y="76">Build</text><text x="470" y="94">& test</text></g>
-      <path d="M95 80H115M200 80H220M305 80H325M410 80H430" class="arrow"/>
-      <path d="M468 112C468 155 160 155 160 112" class="arrow dashed"/>
-      <text x="267" y="168">Prototype feedback may require a new revision</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>What is the difference between a PCB and a PCBA?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> A PCB is the unpopulated printed circuit board. A PCBA is the PCB after components have been assembled onto it.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Which feature electrically connects copper on different layers?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> A plated via or plated through-hole.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Put these in the correct order: routing, schematic, fabrication outputs, placement, ERC.</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Schematic → ERC → placement → routing → DRC/review → fabrication outputs.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Which KiCad layer normally defines the physical board perimeter?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Edge.Cuts.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Why can a circuit with a correct schematic fail after fabrication?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Layout introduces real resistance, inductance, capacitance, thermal, return-path, mechanical and manufacturing effects that the ideal schematic does not show.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Getting Started</a></li><li><a href="https://learn.sparkfun.com/tutorials/pcb-basics/all" target="_blank" rel="noopener noreferrer">SparkFun — PCB Basics</a></li><li><a href="https://www.ansys.com/simulation-topics/what-is-a-printed-circuit-board" target="_blank" rel="noopener noreferrer">Ansys — What Is a Printed Circuit Board?</a></li><li><a href="https://resources.altium.com/p/how-design-pcb" target="_blank" rel="noopener noreferrer">Altium — How to Design a PCB</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-2">
-      <div class="topic-head">
-        <div>
-          <span class="level">2 — Beginner</span>
-          <h2>2. EDA projects and schematic capture</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="2">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Create one project containing the schematic, PCB, libraries and settings; do not manage the board as an isolated file.</li><li>Use reference designators, values, net labels, junctions, power symbols and readable functional blocks.</li><li>Annotate components and assign clear net names before layout.</li><li>Run ERC, investigate every warning and document intentional exceptions.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Draw and validate an LED, button or sensor interface schematic in KiCad.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Simple LED circuit</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 480 190" role="img" aria-label="Simple LED schematic">
-      <text x="25" y="28">+5V</text>
-      <path d="M45 35V72H110" class="wire"/>
-      <rect x="110" y="58" width="72" height="28" rx="5" class="component"/>
-      <text x="146" y="77">R1 330Ω</text>
-      <path d="M182 72H240" class="wire"/>
-      <polygon points="240,53 240,91 278,72" class="component"/>
-      <path d="M282 52V92" class="wire"/>
-      <path d="M282 72H354V126" class="wire"/>
-      <path d="M334 126H374M341 136H367M349 146H359" class="wire"/>
-      <text x="235" y="120">D1 LED</text>
-      <circle cx="182" cy="72" r="5" class="junction"/>
-      <text x="62" y="166">A net is the complete electrical connection, not merely one drawn line segment.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Using net labels</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 480 190" role="img" aria-label="Net labels connecting distant schematic nodes">
-      <rect x="28" y="48" width="100" height="78" rx="9" class="component"/>
-      <text x="78" y="75">MCU</text><text x="78" y="96">GPIO12</text>
-      <path d="M128 88H205" class="wire"/>
-      <polygon points="205,73 275,73 290,88 275,103 205,103" class="label"/>
-      <text x="247" y="92">PUMP_EN</text>
-      <polygon points="320,73 390,73 405,88 390,103 320,103" class="label"/>
-      <text x="362" y="92">PUMP_EN</text>
-      <path d="M405 88H448" class="wire"/>
-      <text x="240" y="148">Matching labels join the same net without a long wire.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>What does reference designator R3 mean?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It identifies the third resistor reference in the project; it is not the resistor value.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Two wires cross without a junction dot. Are they necessarily connected?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Connection depends on the EDA tool’s junction rules; an explicit junction removes ambiguity.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Why use a net label such as I2C_SDA?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It names and connects a signal clearly across the schematic without drawing long wires.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>What should you do after changing the schematic once PCB layout has started?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Run ERC again, then update/synchronize the PCB from the schematic and review the proposed changes.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>ERC reports that a power input is not driven, although an external connector supplies it. What is the correct response?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Model the power source correctly, for example with the tool’s appropriate power-output or power-flag mechanism; do not blindly ignore the warning.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Getting Started</a></li><li><a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Schematic Editor</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li><li><a href="https://resources.altium.com/p/how-design-pcb" target="_blank" rel="noopener noreferrer">Altium — How to Design a PCB</a></li><li><a href="https://resources.altium.com/p/pcb-design-basics-new-designers" target="_blank" rel="noopener noreferrer">Altium — PCB Design Basics for New Designers</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-3">
-      <div class="topic-head">
-        <div>
-          <span class="level">3 — Beginner</span>
-          <h2>3. Datasheets, symbols, footprints and the BOM</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="3">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>A symbol represents electrical function; a footprint represents the physical land pattern.</li><li>Verify package name, pin numbering, polarity, exposed pads, pitch and dimensions against the manufacturer datasheet.</li><li>Check courtyard, assembly outline and 3D orientation, but never trust the 3D model as proof of pin correctness.</li><li>Use exact manufacturer part numbers in the BOM when substitution matters.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Create or verify one custom footprint from a mechanical drawing and print it at 1:1 scale.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Symbol-to-footprint mapping</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 500 190" role="img" aria-label="Symbol versus footprint pin mapping">
-      <rect x="35" y="35" width="150" height="115" rx="12" class="component"/>
-      <text x="110" y="25">Schematic symbol</text>
-      <text x="110" y="93">U1</text>
-      <g class="pintext"><text x="15" y="61">1</text><text x="15" y="91">2</text><text x="15" y="121">3</text><text x="188" y="61">8</text><text x="188" y="91">7</text><text x="188" y="121">6</text></g>
-      <path d="M20 56H35M20 86H35M20 116H35M185 56H202M185 86H202M185 116H202" class="wire"/>
-      <path d="M225 92H275" class="arrow"/>
-      <rect x="305" y="35" width="155" height="115" rx="12" class="board"/>
-      <text x="382" y="25">SOIC-8 footprint</text>
-      <g class="pad">
-        <rect x="290" y="50" width="32" height="18"/><rect x="290" y="77" width="32" height="18"/><rect x="290" y="104" width="32" height="18"/><rect x="290" y="131" width="32" height="18"/>
-        <rect x="443" y="50" width="32" height="18"/><rect x="443" y="77" width="32" height="18"/><rect x="443" y="104" width="32" height="18"/><rect x="443" y="131" width="32" height="18"/>
-      </g>
-      <circle cx="334" cy="53" r="6" class="pin1"/>
-      <text x="330" y="176">Pin 1 marker must agree with the datasheet.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Different physical packages</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 500 190" role="img" aria-label="Different packages for similar electrical parts">
-      <text x="88" y="28">Same function, different physical package</text>
-      <rect x="45" y="70" width="66" height="30" rx="5" class="component"/>
-      <rect x="30" y="75" width="18" height="20" class="pad"/><rect x="108" y="75" width="18" height="20" class="pad"/>
-      <text x="78" y="126">0603 SMD</text>
-      <path d="M192 84H225M295 84H328" class="wire"/>
-      <rect x="225" y="62" width="70" height="44" rx="20" class="component"/>
-      <text x="260" y="126">Axial THT</text>
-      <rect x="382" y="58" width="66" height="56" rx="8" class="component"/>
-      <g class="pad"><rect x="367" y="65" width="18" height="16"/><rect x="367" y="91" width="18" height="16"/><rect x="445" y="65" width="18" height="16"/><rect x="445" y="91" width="18" height="16"/></g>
-      <text x="415" y="137">SOT-23-4</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Can a generic op-amp symbol be assigned to any 8-pin footprint?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. The package and, critically, the symbol pin numbers must match the exact device datasheet.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>An IC is available in SOIC-8 and DFN-8. Can both use the same footprint?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Their pad geometry, pitch, body and often exposed-pad requirements differ.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>What is the safest source for a footprint’s dimensions?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> The latest manufacturer datasheet or official package drawing, checked against the chosen orderable part.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Why include an MPN in the BOM?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It identifies the exact purchasable component and prevents ambiguous substitutions based only on value or description.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>What simple check catches many footprint-size errors before ordering?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Print the PCB or footprint at true 1:1 scale and place the real component over it; still verify pin mapping separately.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Getting Started</a></li><li><a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Schematic Editor</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener noreferrer">IPC — PCB Design Standards</a></li><li><a href="https://www.ipc.org/sites/default/files/documents/PCBA-Checklist.pdf" target="_blank" rel="noopener noreferrer">IPC — Rigid PCBA Standards Checklist</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-4">
-      <div class="topic-head">
-        <div>
-          <span class="level">4 — Beginner to intermediate</span>
-          <h2>4. Power circuits, decoupling and schematic reliability</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="4">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Design the complete power path: connector, protection, regulation, bulk capacitance and local bypassing.</li><li>Place local decoupling capacitors at the relevant IC power pins with a short current loop.</li><li>Follow datasheets for regulator input/output capacitor values, ESR, layout and stability requirements.</li><li>Check reset, boot straps, pull-ups, unused pins, programming headers and connector pin protection.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Design a stable 5 V-to-3.3 V supply section and justify each protection and capacitor component.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Local decoupling loop</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 500 190" role="img" aria-label="Decoupling capacitor current loop">
-      <rect x="280" y="48" width="140" height="90" rx="12" class="component"/>
-      <text x="350" y="88">IC</text><text x="350" y="109">VDD / GND</text>
-      <line x1="280" y1="72" x2="225" y2="72" class="wire"/>
-      <line x1="280" y1="117" x2="225" y2="117" class="wire"/>
-      <line x1="225" y1="58" x2="225" y2="86" class="wire"/>
-      <line x1="213" y1="91" x2="237" y2="91" class="wire"/>
-      <line x1="213" y1="98" x2="237" y2="98" class="wire"/>
-      <line x1="225" y1="103" x2="225" y2="117" class="wire"/>
-      <text x="184" y="46">100 nF</text>
-      <path d="M225 61C250 22 408 26 408 70" class="arrow dashed"/>
-      <text x="54" y="157">Place the capacitor so the high-frequency loop is short and compact.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Power-entry chain</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 190" role="img" aria-label="Power input protection and regulation chain">
-      <g class="flowbox"><rect x="10" y="57" width="80" height="50" rx="9"/><text x="50" y="86">Connector</text></g>
-      <g class="flowbox"><rect x="108" y="57" width="80" height="50" rx="9"/><text x="148" y="78">Fuse /</text><text x="148" y="95">protection</text></g>
-      <g class="flowbox"><rect x="206" y="57" width="80" height="50" rx="9"/><text x="246" y="78">Input</text><text x="246" y="95">capacitor</text></g>
-      <g class="flowbox"><rect x="304" y="57" width="80" height="50" rx="9"/><text x="344" y="86">Regulator</text></g>
-      <g class="flowbox"><rect x="402" y="57" width="105" height="50" rx="9"/><text x="454" y="78">Local bypass</text><text x="454" y="95">at each IC</text></g>
-      <path d="M90 82H108M188 82H206M286 82H304M384 82H402" class="arrow"/>
-      <text x="260" y="146">Values and protection devices must follow the circuit requirements and datasheets.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Why is a 100 nF capacitor placed close to an IC power pin?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It supplies high-frequency transient current locally and reduces the inductance of the current path.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Can one large capacitor at the board connector replace all local bypass capacitors?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Its distance and interconnect inductance make it ineffective for many fast local current transients.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Should regulator capacitor values be copied from an unrelated design?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Use the selected regulator’s datasheet and account for capacitance tolerance, bias derating and ESR requirements.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>A pushbutton input floats when released. What is missing?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> A defined pull-up or pull-down, whether external or a deliberately enabled internal pull resistor.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Why provide a programming/debug header on an early prototype?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It makes firmware loading, reset control and low-level debugging practical during bring-up.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://e2e.ti.com/blogs_/archives/b/precisionhub/posts/the-decoupling-capacitor-is-it-really-necessary" target="_blank" rel="noopener noreferrer">Texas Instruments — Why Decoupling Capacitors Matter</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener noreferrer">Analog Devices — Grounding and Decoupling</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-march-2017.html" target="_blank" rel="noopener noreferrer">Analog Devices — Grounding Fundamentals</a></li><li><a href="https://www.ti.com/lit/pdf/SLUA366" target="_blank" rel="noopener noreferrer">Texas Instruments — PCB Layout Guidelines for Power Controllers</a></li><li><a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener noreferrer">KiCad 10 — Schematic Editor</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-5">
-      <div class="topic-head">
-        <div>
-          <span class="level">5 — Intermediate</span>
-          <h2>5. Board outline, layer stack-up and design rules</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="5">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Lock board dimensions, mounting holes, connector locations, height limits and keepouts before free placement.</li><li>Choose layer count and stack-up from electrical, routing, cost and manufacturer constraints.</li><li>Set clearances, minimum widths, via sizes and net classes from the fabricator and applicable safety/design requirements.</li><li>Use a continuous reference plane where signal return paths require it.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Create a manufacturable board outline and rule set using a real fabricator’s published capabilities.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Two-layer and four-layer stack-ups</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 195" role="img" aria-label="Two-layer and four-layer PCB stackups">
-      <text x="95" y="25">Typical 2-layer learning board</text>
-      <rect x="35" y="50" width="200" height="15" class="copper"/><text x="250" y="62">Signals + copper fill</text>
-      <rect x="35" y="67" width="200" height="45" class="dielectric"/>
-      <rect x="35" y="114" width="200" height="15" class="copper"/><text x="250" y="126">Signals + ground</text>
-      <text x="100" y="163">Typical 4-layer board</text>
-      <rect x="300" y="43" width="180" height="12" class="copper"/>
-      <rect x="300" y="57" width="180" height="18" class="dielectric"/>
-      <rect x="300" y="77" width="180" height="12" class="plane"/>
-      <rect x="300" y="91" width="180" height="18" class="dielectric"/>
-      <rect x="300" y="111" width="180" height="12" class="plane"/>
-      <rect x="300" y="125" width="180" height="18" class="dielectric"/>
-      <rect x="300" y="145" width="180" height="12" class="copper"/>
-      <text x="390" y="183">Signal / GND / PWR / Signal</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Mechanical constraints</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 195" role="img" aria-label="Mechanical constraints on a PCB">
-      <rect x="45" y="25" width="420" height="140" rx="16" class="board"/>
-      <circle cx="80" cy="55" r="12" class="hole"/><circle cx="430" cy="55" r="12" class="hole"/>
-      <circle cx="80" cy="135" r="12" class="hole"/><circle cx="430" cy="135" r="12" class="hole"/>
-      <rect x="185" y="18" width="150" height="46" rx="7" class="connector"/>
-      <rect x="155" y="80" width="210" height="55" rx="9" class="keepout"/>
-      <text x="260" y="108">Enclosure / height keepout</text>
-      <text x="260" y="184">Fix connectors, mounting holes and keepouts before free placement.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Why should connectors and mounting holes be placed early?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> They are constrained by the enclosure and external interfaces; late movement can invalidate the entire layout.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Is the smallest advertised track width always a good default?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. It reduces manufacturing margin and may increase cost or risk. Use comfortably manufacturable dimensions unless density requires otherwise.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>What determines controlled impedance?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Trace geometry, copper thickness, dielectric thickness and dielectric properties, plus the manufacturer’s actual stack-up.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Why is a self-intersecting board outline invalid?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> The fabricator cannot unambiguously determine the board perimeter.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>When should a four-layer board be considered instead of two layers?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> When routing density, continuous reference planes, power integrity, EMI control or signal integrity cannot be met reliably on two layers.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener noreferrer">IPC — PCB Design Standards</a></li><li><a href="https://www.ti.com/lit/an/scaa082a/scaa082a.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — High-Speed Layout Guidelines</a></li><li><a href="https://resources.altium.com/p/pcb-design-basics-new-designers" target="_blank" rel="noopener noreferrer">Altium — PCB Design Basics for New Designers</a></li><li><a href="https://www.ul.com/services/pcb-safety-compliance-and-reliability-testing-services" target="_blank" rel="noopener noreferrer">UL Solutions — PCB Safety and Reliability Testing</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-6">
-      <div class="topic-head">
-        <div>
-          <span class="level">6 — Intermediate</span>
-          <h2>6. Component placement</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="6">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Place fixed mechanical parts first, then major ICs and functional blocks.</li><li>Place components according to current flow, signal flow and critical loops—not visual symmetry.</li><li>Keep decoupling, crystals, feedback components and high-current switching parts close to their associated pins.</li><li>Consider assembly access, orientation, thermal flow, probing and rework.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Place a small MCU board so that all critical nets can be routed without crossing noisy and sensitive regions.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Functional block placement</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 200" role="img" aria-label="Functional block placement">
-      <rect x="28" y="25" width="464" height="145" rx="15" class="board"/>
-      <rect x="45" y="46" width="110" height="100" rx="10" class="block quiet"/><text x="100" y="90">Analog</text><text x="100" y="109">sensor</text>
-      <rect x="185" y="60" width="120" height="80" rx="10" class="block"/><text x="245" y="104">MCU</text>
-      <rect x="335" y="42" width="135" height="110" rx="10" class="block noisy"/><text x="402" y="90">Motor /</text><text x="402" y="109">switcher</text>
-      <path d="M155 95H185M305 95H335" class="arrow"/>
-      <text x="260" y="190">Separate noisy current loops from sensitive analog nodes; keep required connections short.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Compact converter placement</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 200" role="img" aria-label="Compact switching regulator placement">
-      <rect x="25" y="25" width="470" height="145" rx="15" class="board"/>
-      <rect x="205" y="62" width="95" height="65" rx="10" class="component"/><text x="252" y="98">Buck IC</text>
-      <rect x="100" y="68" width="62" height="52" rx="8" class="component"/><text x="131" y="99">Cin</text>
-      <rect x="338" y="48" width="78" height="45" rx="8" class="component"/><text x="377" y="76">L</text>
-      <rect x="342" y="112" width="78" height="42" rx="8" class="component"/><text x="381" y="139">Cout</text>
-      <path d="M162 94H205M300 86H338M300 111L342 130" class="wire"/>
-      <path d="M164 65C183 33 311 32 336 59" class="arrow dashed"/>
-      <text x="260" y="188">Follow the regulator datasheet’s critical-loop placement before optimizing appearance.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Which should be placed first: a board-edge USB connector or a status LED?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> The USB connector, because its mechanical position is fixed by the enclosure and cable access.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Why place a crystal close to MCU oscillator pins?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> To minimize loop area, parasitic coupling and susceptibility to noise.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Is aligning every component in a neat grid the primary placement goal?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Electrical performance, manufacturability, thermals and mechanical constraints take priority.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Where should a buck regulator input capacitor be placed?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> As close as the datasheet recommends to the regulator’s input and return pins, minimizing the high di/dt loop.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Why leave probe access around important rails and signals?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Early prototypes require measurement and debugging; inaccessible nodes slow or prevent diagnosis.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://resources.altium.com/p/where-do-they-all-go-pcb-layout-component-placement-guidelines" target="_blank" rel="noopener noreferrer">Altium — Component Placement Guidelines</a></li><li><a href="https://resources.altium.com/p/pcb-design-basics-new-designers" target="_blank" rel="noopener noreferrer">Altium — PCB Design Basics for New Designers</a></li><li><a href="https://www.ti.com/lit/pdf/SLUA366" target="_blank" rel="noopener noreferrer">Texas Instruments — PCB Layout Guidelines for Power Controllers</a></li><li><a href="https://www.ti.com/lit/an/slva959b/slva959b.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — Board Layout for Motor Drivers</a></li><li><a href="https://www.nxp.com/docs/en/application-note/AN1259.pdf" target="_blank" rel="noopener noreferrer">NXP — System Design and Layout for Noise Immunity</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-7">
-      <div class="topic-head">
-        <div>
-          <span class="level">7 — Intermediate</span>
-          <h2>7. Routing fundamentals, vias and copper zones</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="7">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Route critical clocks, analog nodes, power loops and constrained interfaces before ordinary GPIO.</li><li>Use short, direct routes and avoid unnecessary vias, stubs and neck-downs.</li><li>Maintain a nearby, continuous return path; add an appropriate return via when changing reference layers.</li><li>Use copper zones deliberately and re-run zone fill and DRC after edits.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Route a two-layer board with zero unintended unrouted nets and a defensible ground strategy.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Signal layer transition</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 195" role="img" aria-label="Trace, via and layer transition">
-      <rect x="40" y="36" width="440" height="120" rx="14" class="board"/>
-      <circle cx="90" cy="96" r="20" class="pad"/>
-      <circle cx="430" cy="96" r="20" class="pad"/>
-      <path d="M110 96H210L240 68" class="trace top"/>
-      <circle cx="247" cy="61" r="12" class="via"/>
-      <path d="M255 68L300 112H410" class="trace bottom"/>
-      <circle cx="278" cy="78" r="7" class="via ground"/>
-      <text x="260" y="181">A nearby ground stitching via can support the return path at a signal-layer transition.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Copper zone and thermal relief</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 195" role="img" aria-label="Copper zone and thermal relief">
-      <rect x="40" y="28" width="440" height="135" rx="14" class="zone"/>
-      <circle cx="150" cy="96" r="33" class="clearance"/>
-      <circle cx="150" cy="96" r="20" class="pad"/>
-      <path d="M150 63V76M150 116V129M117 96H130M170 96H183" class="thermal"/>
-      <rect x="285" y="70" width="110" height="52" rx="10" class="keepout"/>
-      <text x="340" y="101">Keepout</text>
-      <text x="260" y="184">Zones still obey clearances; thermal spokes make many pads easier to solder.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>What does an unrouted ratline indicate?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> A required electrical connection from the netlist has not yet been completed with copper.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Why can a signal via require a nearby ground via?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> When the signal changes reference layers, the return current needs a low-inductance path to change planes as well.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Does a filled ground zone automatically create a good ground plane?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Slots, narrow necks, isolated islands and poor via connections can break or increase return-path impedance.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Why use thermal relief on many through-hole or SMD pads connected to large copper?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It reduces heat sinking during soldering while maintaining an electrical connection.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Should you route a fast signal across a split in its reference plane?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. The return current must detour, increasing loop area, noise and radiation.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li><li><a href="https://resources.altium.com/p/pcb-routing" target="_blank" rel="noopener noreferrer">Altium — PCB Routing Basics</a></li><li><a href="https://www.ti.com/lit/an/scaa082a/scaa082a.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — High-Speed Layout Guidelines</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener noreferrer">Analog Devices — Mixed-Signal PCB Layout Guidelines</a></li><li><a href="https://www.analog.com/media/en/training-seminars/design-handbooks/Basic-Linear-Design/Chapter12.pdf" target="_blank" rel="noopener noreferrer">Analog Devices — Printed Circuit Board Design Issues</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-8">
-      <div class="topic-head">
-        <div>
-          <span class="level">8 — Intermediate to advanced</span>
-          <h2>8. Power distribution, grounding, current and thermal design</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="8">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Design the complete forward-and-return current path; shared impedance is often more important than the label GND.</li><li>Use sufficiently short and wide copper for current, voltage drop and temperature rise; verify with IPC methods, simulation or manufacturer tools.</li><li>A solid ground plane is usually safer than casually splitting analog and digital ground.</li><li>Plan heat spreading, copper area, exposed pads, thermal vias and airflow from component loss data.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Estimate voltage drop and temperature risk for a pump, LED or regulator power path and verify the layout.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Forward and return current</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 205" role="img" aria-label="Power and return current loop">
-      <rect x="42" y="35" width="105" height="70" rx="10" class="component"/><text x="94" y="76">Supply</text>
-      <rect x="368" y="35" width="105" height="70" rx="10" class="component"/><text x="420" y="76">Load</text>
-      <path d="M147 56H368" class="trace power"/>
-      <path d="M368 91H147" class="trace return"/>
-      <path d="M147 91V56M368 56V91" class="wire"/>
-      <text x="260" y="27">Forward current</text>
-      <text x="260" y="124">Return current</text>
-      <path d="M180 148H340" class="dimension"/>
-      <text x="260" y="180">Reduce loop area and shared impedance, especially for pulsed current.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Exposed pad and thermal vias</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 200" role="img" aria-label="Exposed pad with thermal vias">
-      <rect x="130" y="32" width="260" height="130" rx="18" class="component"/>
-      <rect x="205" y="64" width="110" height="70" rx="8" class="epad"/>
-      <g class="via-array">
-        <circle cx="225" cy="82" r="7"/><circle cx="260" cy="82" r="7"/><circle cx="295" cy="82" r="7"/>
-        <circle cx="225" cy="116" r="7"/><circle cx="260" cy="116" r="7"/><circle cx="295" cy="116" r="7"/>
-      </g>
-      <text x="260" y="24">IC exposed thermal pad</text>
-      <text x="260" y="188">Via size, count, filling and paste pattern must match package and assembler guidance.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Which factors affect trace current capability?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Copper thickness, trace width and length, allowed temperature rise, surrounding copper/layers, airflow and board material conditions.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Why can a narrow ground return cause sensor error?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Load current creates voltage across the shared return impedance, shifting the sensor’s local ground reference.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Should analog and digital ground always be split?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Splits can force return-current detours. Partition circuits and control current paths; split only with a justified system-level plan.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>What is Kelvin sensing?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Using separate sense connections so measurement current does not share the voltage drop of the high-current path.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Can thermal vias be added arbitrarily under every exposed pad?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Their diameter, finish, count and paste interaction must follow package, fabricator and assembler guidance.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener noreferrer">IPC — PCB Design Standards</a></li><li><a href="https://www.ti.com/lit/pdf/SLUA366" target="_blank" rel="noopener noreferrer">Texas Instruments — PCB Layout Guidelines for Power Controllers</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-march-2017.html" target="_blank" rel="noopener noreferrer">Analog Devices — Grounding Fundamentals</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener noreferrer">Analog Devices — Mixed-Signal PCB Layout Guidelines</a></li><li><a href="https://www.ti.com/lit/an/slva959b/slva959b.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — Board Layout for Motor Drivers</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-9">
-      <div class="topic-head">
-        <div>
-          <span class="level">9 — Advanced</span>
-          <h2>9. Analog, mixed-signal interfaces and protection</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="9">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Partition sensitive analog, high-speed digital and noisy power sections according to current paths and coupling risk.</li><li>Keep ADC inputs, references, feedback and high-impedance nodes compact and away from switching nodes.</li><li>Place ESD protection and input filtering at the connector or noise-entry point.</li><li>Copy proven reference layouts for crystals, RF networks, precision converters and switching regulators unless you can justify changes.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Lay out a sensor-to-ADC chain and an external connector with suitable filtering and protection.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Sensor-to-ADC signal chain</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 540 205" role="img" aria-label="Analog sensor to ADC placement chain">
-      <g class="flowbox"><rect x="15" y="60" width="85" height="55" rx="9"/><text x="57" y="92">Sensor</text></g>
-      <g class="flowbox"><rect x="120" y="60" width="90" height="55" rx="9"/><text x="165" y="83">RC / input</text><text x="165" y="101">filter</text></g>
-      <g class="flowbox"><rect x="230" y="60" width="90" height="55" rx="9"/><text x="275" y="92">Amplifier</text></g>
-      <g class="flowbox"><rect x="340" y="60" width="85" height="55" rx="9"/><text x="382" y="92">ADC</text></g>
-      <g class="flowbox"><rect x="445" y="60" width="80" height="55" rx="9"/><text x="485" y="92">MCU</text></g>
-      <path d="M100 87H120M210 87H230M320 87H340M425 87H445" class="arrow"/>
-      <path d="M380 122V155H324" class="wire"/><rect x="235" y="143" width="89" height="28" rx="7" class="component"/><text x="279" y="162">VREF bypass</text>
-      <text x="270" y="195">Keep the sensitive analog path compact and away from switching nodes.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Protection at a connector</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 540 205" role="img" aria-label="Connector protection placement">
-      <rect x="20" y="52" width="95" height="80" rx="10" class="connector"/><text x="67" y="96">External</text><text x="67" y="114">connector</text>
-      <rect x="145" y="65" width="85" height="55" rx="9" class="component"/><text x="187" y="98">TVS / ESD</text>
-      <rect x="260" y="65" width="85" height="55" rx="9" class="component"/><text x="302" y="87">Filter /</text><text x="302" y="104">common mode</text>
-      <rect x="375" y="52" width="140" height="80" rx="10" class="component"/><text x="445" y="96">Interface IC</text>
-      <path d="M115 92H145M230 92H260M345 92H375" class="arrow"/>
-      <path d="M187 120V160H118" class="trace return"/>
-      <text x="270" y="191">Shunt the transient near the entry point with a short, low-inductance return path.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Where should a TVS diode for an external connector be placed?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Close to the connector, before the protected signal travels through the board, with a short return path.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Why keep an ADC reference bypass capacitor close to the reference pins?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> The reference is sensitive to dynamic current and noise; a compact loop reduces impedance and contamination.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>What is wrong with routing a motor phase trace beside a high-impedance sensor input?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Fast, high-current switching can couple capacitively and inductively into the sensitive sensor node.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Why is a datasheet reference layout especially important for RF or switching circuits?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Parasitics and current-loop geometry are part of the circuit behavior; small layout changes can materially alter performance.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>Does placing analog and digital blocks far apart always improve performance?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Excessive distance can lengthen signals and returns. Place blocks to keep sensitive paths short while controlling noisy current flow.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener noreferrer">Analog Devices — Mixed-Signal PCB Layout Guidelines</a></li><li><a href="https://www.nxp.com/docs/en/application-note/AN1259.pdf" target="_blank" rel="noopener noreferrer">NXP — System Design and Layout for Noise Immunity</a></li><li><a href="https://www.ti.com/lit/pdf/slla324" target="_blank" rel="noopener noreferrer">Texas Instruments — HDMI ESD PCB Layout Guidelines</a></li><li><a href="https://www.ti.com/lit/an/slva959b/slva959b.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — Board Layout for Motor Drivers</a></li><li><a href="https://www.analog.com/media/en/training-seminars/design-handbooks/Basic-Linear-Design/Chapter12.pdf" target="_blank" rel="noopener noreferrer">Analog Devices — Printed Circuit Board Design Issues</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-10">
-      <div class="topic-head">
-        <div>
-          <span class="level">10 — Advanced</span>
-          <h2>10. Signal integrity and high-speed routing</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="10">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Signal edge rate—not only clock frequency—determines when a trace behaves as a transmission line.</li><li>Controlled impedance requires a defined stack-up and continuous reference plane.</li><li>Route differential pairs with the specified impedance geometry, low discontinuity and required skew control.</li><li>Use terminations, length matching and via transitions only when the interface or analysis requires them.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Define stack-up-based constraints for one interface such as USB, Ethernet, LVDS or a fast clock.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Microstrip geometry</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 205" role="img" aria-label="Microstrip transmission line cross-section">
-      <rect x="80" y="54" width="360" height="20" rx="4" class="trace top"/>
-      <rect x="50" y="76" width="420" height="70" rx="6" class="dielectric"/>
-      <rect x="50" y="148" width="420" height="18" rx="4" class="plane"/>
-      <path d="M80 40H440" class="dimension"/><text x="260" y="30">Trace width W</text>
-      <path d="M472 76V146" class="dimension"/><text x="490" y="115">H</text>
-      <text x="260" y="112">Dielectric: thickness and Dk matter</text>
-      <text x="260" y="192">Impedance is a stack-up geometry property, not a trace-width guess.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Differential-pair routing</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 520 205" role="img" aria-label="Differential pair routing">
-      <rect x="40" y="30" width="440" height="135" rx="14" class="board"/>
-      <path d="M70 78H210C260 78 250 60 300 60H450" class="trace diff"/>
-      <path d="M70 108H210C260 108 250 90 300 90H450" class="trace diff"/>
-      <path d="M315 60V90" class="dimension"/>
-      <text x="333" y="79">S</text>
-      <path d="M210 78C230 78 230 108 210 108" class="tuning"/>
-      <text x="260" y="187">Maintain the specified geometry and minimize discontinuities; tune only when required.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>A 1 MHz signal has a 500 ps edge. Can it require high-speed treatment?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Yes. The fast edge contains high-frequency energy; interconnect delay relative to edge time is what matters.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Can you set a 50 Ω trace width before knowing the stack-up?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Width alone is insufficient; dielectric height, material properties and copper thickness are required.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Why avoid changing differential-pair spacing around vias?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Spacing changes alter coupling and differential impedance, creating a discontinuity.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Must every pair be length-matched to zero difference?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Match only to the interface’s permitted skew; unnecessary serpentine adds loss and coupling.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>What is a stub?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> A branch of transmission line that ends away from the main signal path; at high speed it can create reflections and resonances.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://www.analog.com/media/en/training-seminars/tutorials/mt-094.pdf" target="_blank" rel="noopener noreferrer">Analog Devices — Microstrip and Stripline Design</a></li><li><a href="https://www.analog.com/media/en/training-seminars/tutorials/mt-097.pdf" target="_blank" rel="noopener noreferrer">Analog Devices — Dealing with High-Speed Logic</a></li><li><a href="https://www.ti.com/lit/an/scaa082a/scaa082a.pdf" target="_blank" rel="noopener noreferrer">Texas Instruments — High-Speed Layout Guidelines</a></li><li><a href="https://www.analog.com/en/resources/app-notes/an-1177.html" target="_blank" rel="noopener noreferrer">Analog Devices — LVDS/M-LVDS Implementation Guide</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener noreferrer">KiCad 10 — PCB Editor</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-11">
-      <div class="topic-head">
-        <div>
-          <span class="level">11 — Advanced</span>
-          <h2>11. EMC, EMI and ESD-aware layout</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="11">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>Reduce loop area, especially for fast switching and high di/dt paths.</li><li>Keep noisy nodes compact, separate them from sensitive traces and use filtering at cable/connector boundaries.</li><li>Give ESD currents a short, controlled path that avoids protected circuitry.</li><li>Plan pre-compliance measurements; EMC fixes after enclosure tooling and production are expensive.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Review a completed PCB for likely radiation, susceptibility and ESD-current paths before ordering.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Short ESD discharge path</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 540 205" role="img" aria-label="ESD current path at connector">
-      <rect x="20" y="55" width="95" height="80" rx="10" class="connector"/><text x="67" y="99">USB</text>
-      <rect x="155" y="68" width="90" height="54" rx="9" class="component"/><text x="200" y="100">TVS</text>
-      <rect x="390" y="55" width="125" height="80" rx="10" class="component"/><text x="452" y="99">Controller</text>
-      <path d="M115 95H155M245 95H390" class="trace top"/>
-      <path d="M200 122V158H95" class="trace return"/>
-      <path d="M90 146L95 158L100 146M82 166H108M87 174H103" class="wire"/>
-      <path d="M60 38C110 12 185 20 200 65" class="arrow dashed"/>
-      <text x="275" y="195">The protector is ineffective if the discharge path is long or routed through sensitive circuitry.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>Compact switching loop</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 540 205" role="img" aria-label="High di dt switching loop">
-      <rect x="60" y="55" width="90" height="70" rx="10" class="component"/><text x="105" y="95">Cin</text>
-      <rect x="225" y="45" width="100" height="90" rx="10" class="component"/><text x="275" y="86">Switch</text><text x="275" y="105">stage</text>
-      <rect x="390" y="55" width="90" height="70" rx="10" class="component"/><text x="435" y="95">Load</text>
-      <path d="M150 72H225M325 72H390M390 112H325M225 112H150M150 72V112M390 72V112" class="trace power"/>
-      <path d="M180 40C230 8 327 8 370 40" class="arrow dashed"/>
-      <text x="270" y="170">Keep the fast switching loop compact; do not enlarge it for visual symmetry.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>What PCB property commonly increases magnetic-field radiation?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Large current-loop area, particularly with fast-changing current.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Why should a switch node copper area be limited?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It has fast voltage transitions and can capacitively couple noise and radiate.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Is a TVS diode enough regardless of placement?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. Long traces and inductive return paths allow the transient voltage to reach the protected circuit.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>Why filter signals near a cable connector?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> The cable can act as an antenna or noise entry path; filtering at the boundary limits energy entering or leaving the board.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>What is pre-compliance testing?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Early, lower-cost emissions/immunity testing used to find likely failures before formal certification.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://www.nxp.com/docs/en/application-note/AN2321.pdf" target="_blank" rel="noopener noreferrer">NXP — Board-Level Electromagnetic Compatibility</a></li><li><a href="https://www.ti.com/de/lit/pdf/sdaa401" target="_blank" rel="noopener noreferrer">Texas Instruments — PCB Techniques for EMC</a></li><li><a href="https://www.ti.com/lit/pdf/slla324" target="_blank" rel="noopener noreferrer">Texas Instruments — HDMI ESD PCB Layout Guidelines</a></li><li><a href="https://www.esda.org/esd-overview/esd-fundamentals/part-1-an-introduction-to-esd/" target="_blank" rel="noopener noreferrer">EOS/ESD Association — ESD Fundamentals</a></li><li><a href="https://www.nxp.com/docs/en/application-note/AN1259.pdf" target="_blank" rel="noopener noreferrer">NXP — System Design and Layout for Noise Immunity</a></li></ol>
-        </details>
-      </div>
-    </section>
-    <section class="topic" id="topic-12">
-      <div class="topic-head">
-        <div>
-          <span class="level">12 — Production readiness</span>
-          <h2>12. DFM/DFA, fabrication files, assembly and board bring-up</h2>
-        </div>
-        <label class="complete-label">
-          <input class="complete-box" type="checkbox" data-topic="12">
-          <span>Completed</span>
-        </label>
-      </div>
-      <div class="topic-body">
-        <div class="summary-panel">
-          <h3>Core knowledge</h3>
-          <ul><li>DRC checks your encoded rules; DFM/DFA checks whether the chosen fabrication and assembly process can build the design reliably.</li><li>Release the required manufacturing data: copper/mask/silkscreen/outline plots, drill data, BOM, pick-and-place and drawings/notes as applicable.</li><li>Inspect every output in an independent viewer before ordering.</li><li>Bring up the first board methodically: visual inspection, shorts check, current-limited power, rails, clocks, reset, programming and interfaces.</li></ul>
-          <p class="milestone"><strong>Practical milestone:</strong> Order, assemble and document one revision of your own board, including measured faults and design corrections.</p>
-        </div>
-        <h3>Illustration examples</h3>
-        <div class="examples-grid">
-        <figure class="example-card">
-          <figcaption>Manufacturing release package</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 560 210" role="img" aria-label="PCB manufacturing output package">
-      <rect x="25" y="28" width="510" height="150" rx="16" class="folder"/>
-      <text x="280" y="20">Release package</text>
-      <g class="file"><rect x="50" y="52" width="90" height="88" rx="7"/><text x="95" y="83">Gerber</text><text x="95" y="104">copper, mask,</text><text x="95" y="121">silkscreen</text></g>
-      <g class="file"><rect x="158" y="52" width="90" height="88" rx="7"/><text x="203" y="88">Drill</text><text x="203" y="109">files</text></g>
-      <g class="file"><rect x="266" y="52" width="90" height="88" rx="7"/><text x="311" y="88">BOM</text><text x="311" y="109">MPNs</text></g>
-      <g class="file"><rect x="374" y="52" width="90" height="88" rx="7"/><text x="419" y="83">Pick &</text><text x="419" y="103">place</text><text x="419" y="122">positions</text></g>
-      <text x="280" y="198">Add drawings, notes, stack-up and special requirements when applicable.</text>
-    </svg></div>
-        </figure>
-        <figure class="example-card">
-          <figcaption>First power-up sequence</figcaption>
-          <div class="svg-wrap">
-    <svg viewBox="0 0 560 215" role="img" aria-label="First power-up bring-up sequence">
-      <g class="flowbox"><rect x="10" y="66" width="82" height="52" rx="9"/><text x="51" y="88">Visual +</text><text x="51" y="105">continuity</text></g>
-      <g class="flowbox"><rect x="108" y="66" width="82" height="52" rx="9"/><text x="149" y="88">Current-</text><text x="149" y="105">limited power</text></g>
-      <g class="flowbox"><rect x="206" y="66" width="82" height="52" rx="9"/><text x="247" y="88">Check</text><text x="247" y="105">rails</text></g>
-      <g class="flowbox"><rect x="304" y="66" width="82" height="52" rx="9"/><text x="345" y="88">Clock +</text><text x="345" y="105">reset</text></g>
-      <g class="flowbox"><rect x="402" y="66" width="82" height="52" rx="9"/><text x="443" y="88">Program +</text><text x="443" y="105">interfaces</text></g>
-      <path d="M92 92H108M190 92H206M288 92H304M386 92H402" class="arrow"/>
-      <path d="M443 125C443 175 150 177 150 125" class="arrow dashed"/>
-      <text x="280" y="204">Record measurements and faults; revise the design rather than hiding repeatable problems.</text>
-    </svg></div>
-        </figure></div>
-        <h3>Exercises</h3>
-        <div class="exercise-list">
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">1</span><p>Does a clean DRC guarantee manufacturability?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> No. DRC only checks the rules you configured; missing or incorrect process rules can still produce an unbuildable design.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">2</span><p>Which files define drilled holes?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> NC/Excellon drill files or the equivalent format required by the selected fabricator.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">3</span><p>Why inspect Gerbers in a separate viewer?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> It checks the actual exported manufacturing data rather than assuming the CAD view and plot settings are correct.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">4</span><p>What is the safest first-power method for a prototype?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> After visual and resistance/continuity checks, use a current-limited bench supply and monitor current and rail voltages.</div>
-        </article>
-        <article class="exercise">
-          <div class="exercise-q"><span class="qnum">5</span><p>What should be checked before firmware features?</p></div>
-          <button class="answer-toggle" type="button" aria-expanded="false">Show answer</button>
-          <div class="answer" hidden><strong>Answer:</strong> Power rails and sequencing, excessive current or heat, clocks, reset and boot configuration; firmware cannot compensate for missing hardware fundamentals.</div>
-        </article></div>
-        <details class="sources">
-          <summary>5 reliable sources for further study</summary>
-          <ol><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html#fabrication_outputs" target="_blank" rel="noopener noreferrer">KiCad 10 — Fabrication Outputs</a></li><li><a href="https://www.ipc.org/event/designing-success-how-dfm-dft-and-dfa-impact-pcb-production" target="_blank" rel="noopener noreferrer">IPC — DFM, DFT and DFA in PCB Production</a></li><li><a href="https://www.ipc.org/sites/default/files/documents/PCBA-Checklist.pdf" target="_blank" rel="noopener noreferrer">IPC — Rigid PCBA Standards Checklist</a></li><li><a href="https://docs.nxp.com/bundle/IMX8MPHDG/page/topics/sample_board_bring-up_checklist.html" target="_blank" rel="noopener noreferrer">NXP — Sample Board Bring-Up Checklist</a></li><li><a href="https://www.ti.com/lit/pdf/sprujc9" target="_blank" rel="noopener noreferrer">Texas Instruments — Custom Board Assembly and Testing</a></li></ol>
-        </details>
-      </div>
-    </section>
-  </main>
+<div class="content">
+<div class="notice">
+<strong>Safety boundary.</strong> This path is appropriate for low-voltage educational prototypes.
+Mains voltage, high-energy batteries, high-current power stages, medical or automotive safety systems,
+RF transmitters, and compliance-critical products require qualified supervision and additional standards.
 </div>
 
-<footer class="footer">
-  Source policy: references are limited to official EDA documentation, semiconductor manufacturers, IPC, UL Solutions, EOS/ESD Association, Ansys and established engineering education material. Always use the latest datasheet revision for the exact component you intend to purchase.
+<section class="roadmap">
+<h2>Recommended order and project progression</h2>
+<div class="roadmap-grid">
+<a href="#topic-1"><b>1–2: First schematic</b>Battery, resistor, LED, switch</a>
+<a href="#topic-3"><b>3–4: First custom board</b>Connector or sensor breakout</a>
+<a href="#topic-5"><b>5–6: Integrated board</b>MCU + sensor + protected power</a>
+<a href="#topic-7"><b>7–8: Production loop</b>Interface, manufacture, assemble, debug</a>
+</div>
+</section>
+
+
+    <section id="topic-1" class="topic" data-title="1. pcb fundamentals, workflow, and kicad setup">
+      <div class="topic-heading">
+        <div class="topic-number">1</div>
+        <div>
+          <p class="eyebrow">Beginner · Suggested study: 6–8 hours</p>
+          <h2>1. PCB fundamentals, workflow, and KiCad setup</h2>
+          <p class="milestone"><strong>Milestone:</strong> Create a clean KiCad project and explain the complete PCB workflow.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Understand the objects</h4><div>A <strong>schematic</strong> describes electrical intent: components, pins, and connections. A
+<strong>PCB</strong> is the manufactured bare board. A <strong>PCBA</strong> is the board after components
+are assembled. A symbol is not a physical package; a footprint is not an electrical model.</div></li><li><h4>Choose a safe first scope</h4><div>Begin with a low-voltage, low-current, two-layer board such as a battery-powered LED board or a
+simple sensor breakout. Do not start with mains electricity, lithium-cell charging, high-current
+motor power, RF, DDR memory, or safety-critical hardware.</div></li><li><h4>Install and open KiCad</h4><div>Use the current stable KiCad release. Create a new project rather than opening isolated schematic
+or board files. A normal project contains <code>.kicad_pro</code>, <code>.kicad_sch</code>, and
+<code>.kicad_pcb</code> files.</div></li><li><h4>Learn the normal workflow</h4><div>Write requirements → draw a block diagram → capture the schematic → run ERC → assign and verify
+footprints → prepare the BOM → define stackup and design rules → place components → route →
+run DRC → inspect in 3D → generate fabrication and assembly files → manufacture → assemble →
+bring up and test.</div></li><li><h4>Control versions</h4><div>Keep the entire project folder together. Use clear revision names and Git when possible. Do not
+email only the board file; libraries, project rules, documentation, and manufacturing outputs may
+also be required.</div></li><li><h4>Make one tiny board end to end</h4><div>Complete the whole process once before attempting a larger design. A finished simple board teaches
+more than an unfinished complex board because it exposes fabrication, soldering, and debugging issues.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c1">
+        <span>I can distinguish schematic, PCB, PCBA, symbol, footprint, pad, via, net, track, plane, and zone.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c2">
+        <span>I can create and reopen a KiCad project without losing libraries or settings.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c3">
+        <span>I can identify the purpose of .kicad_pro, .kicad_sch, and .kicad_pcb files.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c4">
+        <span>I can describe the workflow from requirements to tested hardware in the correct order.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c5">
+        <span>I understand that ERC and DRC detect rule violations but do not prove the circuit will work.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c6">
+        <span>I can keep a project revision history and a short design log.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t1-c7">
+        <span>I can choose a beginner-safe first project and explain why it is appropriately scoped.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/project-manager-new-project.png" alt="KiCad project manager" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>KiCad project manager</strong><p>The project manager keeps the project, schematic, PCB, editors, Gerber viewer, calculator, and supporting tools together. The important beginner habit is to work from the project, not from disconnected files.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/eeschema/images/eeschema_user_interface.png" alt="KiCad Schematic Editor" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>KiCad Schematic Editor</strong><p>The schematic canvas expresses electrical intent. The hierarchy, properties, selection filters, and drawing tools become important as designs grow beyond one sheet.</p>
+          <a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/pcbnew/images/pcbnew_user_interface.png" alt="KiCad PCB Editor" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>KiCad PCB Editor</strong><p>The PCB editor converts the schematic connectivity into physical placement and copper. Layers, properties, net visibility, selection filters, and design rules are all visible in this interface.</p>
+          <a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>Put these activities in a defensible order: routing, schematic, DRC, requirements, fabrication files, ERC, placement, footprint verification.</summary>
+          <div class="answer"><strong>Answer:</strong> Requirements → schematic → ERC → footprint verification → placement →
+routing → DRC → fabrication files. ERC belongs before layout because it checks schematic
+connectivity. DRC belongs after and during layout because it checks physical rules. Footprint
+verification must happen before ordering; a perfect route to the wrong package is still a failed board.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>What is the difference between a symbol and a footprint?</summary>
+          <div class="answer"><strong>Answer:</strong> A symbol is the logical representation used in the schematic; it shows
+pins and electrical meaning. A footprint is the physical copper, holes, mask, paste, courtyard, and
+graphics used on the board. One generic resistor symbol can map to many footprints. The pin numbers
+must agree between the symbol, footprint, and physical component.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>Choose the better first PCB: (A) a 230 V AC motor controller or (B) a 5 V LED and push-button board. Explain.</summary>
+          <div class="answer"><strong>Answer:</strong> B. It is low voltage, has few components, can be checked with a multimeter,
+and has low consequence if a mistake occurs. A includes shock, fire, creepage, clearance, isolation,
+thermal, switching-noise, and regulatory risks. It is unsuitable as an unsupervised first design.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>A classmate sends only a .kicad_pcb file. What may be missing?</summary>
+          <div class="answer"><strong>Answer:</strong> The schematic, project rules, net classes, design rationale, BOM,
+component attributes, project-specific symbols and footprints, simulation files, and revision history.
+The board may open, but the design cannot be fully reviewed or safely modified.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>Does a clean ERC and DRC prove the PCB will work?</summary>
+          <div class="answer"><strong>Answer:</strong> No. They prove only that configured rules were not violated. They do not
+verify component values, functional requirements, analog stability, firmware, thermal limits,
+connector pinouts, power sequencing, signal integrity, or whether the rules themselves were correct.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">KiCad 10 Getting Started</a></li><li><a href="https://docs.kicad.org/10.0/en/introduction/introduction.html" target="_blank" rel="noopener">KiCad Introduction</a></li><li><a href="https://www.kicad.org/download/" target="_blank" rel="noopener">KiCad official download</a></li><li><a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener">KiCad Schematic Editor manual</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">KiCad PCB Editor manual</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-2" class="topic" data-title="2. schematic capture and electrical correctness">
+      <div class="topic-heading">
+        <div class="topic-number">2</div>
+        <div>
+          <p class="eyebrow">Beginner · Suggested study: 10–14 hours</p>
+          <h2>2. Schematic capture and electrical correctness</h2>
+          <p class="milestone"><strong>Milestone:</strong> Draw a readable schematic, calculate basic values, produce a BOM, and obtain a justified clean ERC.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Start with requirements and blocks</h4><div>State supply voltage, current, inputs, outputs, interfaces, environmental limits, and test needs. Draw
+functional blocks before placing individual symbols. This prevents a schematic from becoming an
+unstructured collection of parts.</div></li><li><h4>Select symbols by function and exact part</h4><div>Use generic symbols only while the exact part is undecided. Once selected, record the manufacturer
+part number, package, voltage rating, tolerance, and other critical attributes.</div></li><li><h4>Wire deliberately</h4><div>Use short local wires and named nets for longer connections. Give important signals meaningful names.
+A label creates electrical connectivity; two visually separate wires with the same valid label are the
+same net.</div></li><li><h4>Treat power as a circuit</h4><div>Show input protection, regulator, bulk capacitance, local decoupling, ground, and power-good or
+enable pins. Do not assume power pins are automatically handled. Read the device datasheet for every
+supply pin, exposed pad, reference pin, and required capacitor.</div></li><li><h4>Annotate and verify pins</h4><div>Every symbol needs a unique reference designator. Verify connector pin numbers, IC power pins,
+polarity, transistor pin order, diode orientation, and unused-pin requirements against datasheets.</div></li><li><h4>Run ERC critically</h4><div>Fix genuine errors. For intentional exceptions, document the reason instead of blindly excluding
+messages. ERC cannot detect a wrong resistor value or reversed connector if the schematic is
+electrically legal.</div></li><li><h4>Generate a useful BOM</h4><div>Include reference, quantity, value, manufacturer, MPN, package, tolerance/rating, approved substitute,
+and do-not-populate status where applicable.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c1">
+        <span>I can turn a functional requirement into a block diagram and then a schematic.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c2">
+        <span>I can calculate a basic LED resistor and check resistor power.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c3">
+        <span>I can use wires, junctions, labels, global labels, and power symbols correctly.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c4">
+        <span>I can identify polarity and pin-number risks in connectors, diodes, transistors, and ICs.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c5">
+        <span>I can explain each ERC warning and justify every exclusion.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c6">
+        <span>I can verify all supply, ground, enable, reset, reference, and exposed-pad connections.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t2-c7">
+        <span>I can generate a BOM containing exact orderable part numbers.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/symbols-placed.png" alt="Symbols placed before wiring" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Symbols placed before wiring</strong><p>Symbols alone do not define a circuit. They need correct pin numbers, values, orientation, power connections, and electrical nets.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/symbols-wired.png" alt="A complete simple circuit" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>A complete simple circuit</strong><p>The battery, resistor, and LED form one closed current path. A readable schematic makes the intended direction and function easy to inspect.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/erc-messages.png" alt="Electrical Rules Checker messages" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Electrical Rules Checker messages</strong><p>ERC reports that power-input pins are not driven. The correct response is to understand the power model and add the appropriate source indication, not simply suppress the errors.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>A 5 V supply drives a red LED with 2.0 V forward voltage at a target of 10 mA. Choose a resistor and check its power.</summary>
+          <div class="answer"><strong>Answer:</strong> R = (5 − 2) / 0.01 = 300 Ω. Choose the next common conservative value,
+330 Ω. Current ≈ 3/330 = 9.1 mA. Resistor power ≈ I²R = 0.0091² × 330 ≈ 0.027 W, so a
+0.125 W or 0.25 W resistor has comfortable margin. Recheck using the LED datasheet's voltage range.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>Two separated wires both have the label SENSOR_OUT. Are they connected?</summary>
+          <div class="answer"><strong>Answer:</strong> In the same label scope, yes. Net labels create electrical connectivity
+without a drawn wire between them. The risk is accidental reuse or a spelling variation. Use
+descriptive names and inspect the highlighted net before layout.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>ERC reports “power input not driven” on a battery-powered net. What should you do?</summary>
+          <div class="answer"><strong>Answer:</strong> Confirm the battery symbol pin type and the actual source path. In KiCad,
+a <code>PWR_FLAG</code> may be needed to state that the net is driven. Add it only after confirming
+the physical source; do not use flags to conceal a genuinely unpowered rail.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>A 4-pin connector is numbered left-to-right in your symbol, but the datasheet drawing is a bottom view. What is the risk?</summary>
+          <div class="answer"><strong>Answer:</strong> The footprint can be mirrored relative to the cable or mating connector.
+Verify the manufacturer's viewing direction, pin-1 mark, mating-side orientation, and footprint pad
+numbers. Print the footprint at 1:1 and place the real connector on it before ordering.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>List five schematic checks that ERC may not catch.</summary>
+          <div class="answer"><strong>Answer:</strong> Wrong component value; inadequate voltage/current/power rating; reversed
+but electrically legal connector mapping; missing decoupling recommended by the datasheet; incorrect
+reset/boot strap; unstable regulator compensation; wrong analog reference; and incompatible logic
+levels. Any five with a clear explanation are acceptable.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://docs.kicad.org/10.0/en/eeschema/eeschema.html" target="_blank" rel="noopener">KiCad Schematic Editor manual</a></li><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">KiCad 10 Getting Started – schematic tutorial</a></li><li><a href="https://onlinedocs.microchip.com/oxy/GUID-F9D3C532-E5D3-4B0B-A493-339C2C2521E2-en-US-1/GUID-81017B70-4E02-4FFF-B4C9-F3CDAD416A32.html" target="_blank" rel="noopener">Microchip PCB layout checklist</a></li><li><a href="https://www.analog.com/media/en/training-seminars/design-handbooks/Basic-Linear-Design/Chapter12.pdf" target="_blank" rel="noopener">Analog Devices Basic Linear Design, Chapter 12</a></li><li><a href="https://www.ti.com/lit/an/spma056/spma056.pdf" target="_blank" rel="noopener">TI TM4C129x System Design Guidelines</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-3" class="topic" data-title="3. datasheets, components, packages, footprints, and libraries">
+      <div class="topic-heading">
+        <div class="topic-number">3</div>
+        <div>
+          <p class="eyebrow">Beginner → Intermediate · Suggested study: 12–18 hours</p>
+          <h2>3. Datasheets, components, packages, footprints, and libraries</h2>
+          <p class="milestone"><strong>Milestone:</strong> Select exact components and independently verify or create simple footprints.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Select an exact manufacturer part number</h4><div>A value such as “10 kΩ” is not enough. Check resistance/capacitance, tolerance, voltage, power,
+temperature coefficient, package, lifecycle, availability, and environmental requirements.</div></li><li><h4>Read datasheets in the right order</h4><div>Begin with features, recommended operating conditions, pin description, typical application, power
+requirements, layout guidance, package drawing, and ordering information. Absolute maximum ratings
+are survival limits, not normal design targets.</div></li><li><h4>Separate package from footprint</h4><div>The package is the physical component body and leads. The footprint is the PCB land pattern. Similar
+package names can have different pitches, body sizes, exposed pads, or pin numbering.</div></li><li><h4>Verify the pin map three ways</h4><div>Compare symbol pin number → footprint pad number → datasheet package pin. Confirm pin 1 visually.
+This is one of the highest-value manual reviews in PCB design.</div></li><li><h4>Inspect land-pattern layers</h4><div>Check copper pads, plated or non-plated holes, solder-mask openings, paste apertures, silkscreen,
+fabrication outline, courtyard, assembly origin, and 3D model orientation.</div></li><li><h4>Prefer project-controlled libraries</h4><div>Do not edit official libraries in place. Copy or create critical custom symbols and footprints in a
+project or company library under version control. Record the datasheet revision used.</div></li><li><h4>Perform a physical check</h4><div>Print at 1:1 or compare with a dimensional drawing. For connectors, switches, large capacitors, and
+unusual packages, place the real component on the printout or use a mechanical model.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c1">
+        <span>I can find recommended operating conditions, package drawings, and ordering codes in a datasheet.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c2">
+        <span>I can distinguish absolute maximum ratings from normal operating limits.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c3">
+        <span>I can verify symbol pins against footprint pads and the physical package.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c4">
+        <span>I can identify pin 1 and the manufacturer’s drawing view.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c5">
+        <span>I can inspect copper, mask, paste, courtyard, fabrication, and silkscreen layers.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c6">
+        <span>I can create a basic two-pin or connector footprint from dimensions.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t3-c7">
+        <span>I can maintain project-specific libraries without modifying installed libraries.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/footprint-assignment-tool.png" alt="Footprint assignment" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Footprint assignment</strong><p>Filters reduce candidates but do not verify correctness. The designer still has to compare the selected footprint with the exact component package drawing.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/coldfire-symbol.png" alt="Schematic symbol and pin numbers" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Schematic symbol and pin numbers</strong><p>The letters show transistor function, while the numbers establish the mapping to physical pads. A transistor may use different pin orders in different packages.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/coldfire-footprint.png" alt="Physical footprint" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Physical footprint</strong><p>Pads, pin-1 indication, courtyard, body outline, and reference text are physical layout information. Correct pad numbering is more important than visual resemblance.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>A device is available in SOIC-8 and TSSOP-8. Can you use either 8-pin footprint?</summary>
+          <div class="answer"><strong>Answer:</strong> No. Equal pin count does not imply equal pitch or body dimensions.
+Compare pitch, lead width, body width, package length, pin-1 convention, and exposed-pad options.
+Select the exact land pattern recommended for the ordered package code.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>Your symbol pin 1 is VCC, but footprint pad 1 reaches the IC’s reset pin. What happens?</summary>
+          <div class="answer"><strong>Answer:</strong> The manufactured board connects VCC to reset and all other mapped pins may
+also be shifted. ERC and DRC can still pass because both trust the assigned numbering. Correct the
+symbol or footprint mapping before layout and re-run the three-way pin audit.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>Choose between 0402 and 0805 passives for a first hand-assembled board.</summary>
+          <div class="answer"><strong>Answer:</strong> Prefer 0805 or 0603 unless size or electrical performance requires 0402.
+Larger parts are easier to identify, place, solder, probe, and rework. Check voltage and power ratings;
+package size also affects capacitor effective capacitance and resistor dissipation.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>Give a footprint-review procedure for a new connector.</summary>
+          <div class="answer"><strong>Answer:</strong> Verify exact MPN and mating part; identify drawing view; confirm pin 1;
+copy pad coordinates and hole tolerances; check plated versus non-plated holes; add mechanical pegs;
+set courtyard and board-edge relationship; inspect in 3D; print 1:1; compare with the real connector;
+then have another person review the pinout.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>Which BOM fields are essential for a production-ready resistor line?</summary>
+          <div class="answer"><strong>Answer:</strong> References, quantity, resistance, tolerance, power, voltage rating when
+relevant, package, technology or temperature coefficient when critical, manufacturer, MPN, approved
+alternate, lifecycle status, and DNP status. Distributor stock codes alone are insufficient because
+they can change.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://klc.kicad.org/" target="_blank" rel="noopener">KiCad Library Conventions</a></li><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">KiCad custom symbols and footprints tutorial</a></li><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">KiCad PCB Editor – footprints and libraries</a></li><li><a href="https://www.kicad.org/libraries/download/" target="_blank" rel="noopener">KiCad official libraries</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener">IPC design standards, including land-pattern standards</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-4" class="topic" data-title="4. stackup, fabrication limits, and design rules">
+      <div class="topic-heading">
+        <div class="topic-number">4</div>
+        <div>
+          <p class="eyebrow">Intermediate · Suggested study: 10–14 hours</p>
+          <h2>4. Stackup, fabrication limits, and design rules</h2>
+          <p class="milestone"><strong>Milestone:</strong> Configure a manufacturable two- or four-layer board using supplier rules and justified net classes.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Ask the manufacturer first</h4><div>Obtain supported layer counts, finished thickness, copper weight, minimum trace/space, drill sizes,
+annular ring, board-edge clearance, solder-mask limits, impedance options, and panel requirements.
+Do not design to arbitrary internet values.</div></li><li><h4>Choose the stackup for the circuit</h4><div>A two-layer board is economical for simple low-speed circuits. A four-layer board provides a
+continuous reference plane, easier power distribution, lower loop inductance, and more predictable
+signal integrity. More layers do not fix poor placement.</div></li><li><h4>Set absolute constraints</h4><div>Configure the smallest allowed clearance, track width, via, drill, annular ring, copper-to-edge, and
+silkscreen dimensions from the chosen fabrication capability. Using the supplier’s minimum everywhere
+may increase risk and cost.</div></li><li><h4>Create net classes</h4><div>Use different rules for ordinary signals, power, high current, sensitive analog, differential pairs,
+and controlled-impedance nets. A net class should express a requirement, not simply a color preference.</div></li><li><h4>Size conductors thermally</h4><div>Trace current capacity depends on copper thickness, width, allowable temperature rise, adjacent copper,
+board construction, and airflow. Use IPC-2152-based tools or manufacturer guidance rather than one
+unqualified formula.</div></li><li><h4>Plan vias and holes</h4><div>Confirm finished drill size, plating, annular ring, and aspect ratio. Use larger beginner-friendly vias
+unless density requires smaller features. Distinguish plated through holes from mechanical NPTH holes.</div></li><li><h4>Lock rules before detailed routing</h4><div>Rules can change, but late changes cause rework. Record the manufacturer and process assumptions in
+the project notes so a future order does not silently use incompatible capabilities.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c1">
+        <span>I can obtain and interpret a fabricator’s capability table.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c2">
+        <span>I can choose two versus four layers based on return paths, density, cost, and risk.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c3">
+        <span>I can configure minimum trace, clearance, drill, via, annular ring, and edge clearance.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c4">
+        <span>I can define and assign at least Signal, Power, and Differential Pair net classes.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c5">
+        <span>I understand why manufacturer minimums should not automatically become design defaults.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c6">
+        <span>I can explain the variables that determine current-carrying capacity.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t4-c7">
+        <span>I can produce a short stackup and design-rule specification.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/board-setup-stackup.png" alt="Physical stackup definition" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Physical stackup definition</strong><p>Copper, dielectric, mask, and total thickness define the board geometry. For controlled impedance, actual manufacturer materials and thicknesses matter.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/board-setup-constraints.png" alt="Global fabrication constraints" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Global fabrication constraints</strong><p>These are absolute board limits. They should reflect a real fabrication process and must be conservative enough for reliable manufacture.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/board-setup-net-classes.png" alt="Net-class rules" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Net-class rules</strong><p>Net classes apply different width, clearance, via, and differential-pair settings to groups of nets. This converts electrical requirements into enforceable layout rules.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>A fabricator advertises 0.10 mm minimum trace/space. Should every signal use 0.10 mm?</summary>
+          <div class="answer"><strong>Answer:</strong> No. A published minimum is a process limit, often with lower yield or higher
+cost. Use wider traces and larger clearances where space permits. Reserve minimum features for
+necessary escape routing and confirm any price or reliability impact.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>When is a four-layer board justified for a beginner project?</summary>
+          <div class="answer"><strong>Answer:</strong> When the board has fast edge rates, dense routing, mixed analog/digital
+sections, USB or similar interfaces, difficult return paths, or meaningful EMI risk. A common useful
+arrangement is signal/components, solid ground, power, signal. Confirm the actual stackup with the fab.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>Define three net classes for a 5 V sensor board.</summary>
+          <div class="answer"><strong>Answer:</strong> Example: <em>Signal</em> for ordinary GPIO and low-current nets;
+<em>Power</em> for 5 V, 3.3 V, and pump/relay supply with wider copper and suitable vias;
+<em>Analog</em> for sensor inputs with routing/spacing rules that keep them away from switching nodes.
+Exact widths must be based on current, stackup, and manufacturer capability.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>Why is “1 A trace width = X mm” not universally correct?</summary>
+          <div class="answer"><strong>Answer:</strong> Temperature rise also depends on copper thickness, internal versus external
+layer, length, nearby planes, board material, airflow, ambient temperature, and duty cycle. Use an
+IPC-2152-based calculation or a fabricator-approved rule and document the assumptions.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>A component lead is 0.8 mm maximum diameter. Is a 0.8 mm finished hole adequate?</summary>
+          <div class="answer"><strong>Answer:</strong> Usually not. Assembly needs insertion clearance and fabrication has
+tolerances. Choose a larger finished hole based on the component drawing, lead tolerance, plating, and
+assembler guidance; then ensure sufficient annular ring and pad-to-copper clearance.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">KiCad PCB Editor – board setup and design rules</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener">IPC design standards</a></li><li><a href="https://www.ipc.org/TOC/IPC-2152.pdf" target="_blank" rel="noopener">IPC-2152 scope and current-capacity guidance</a></li><li><a href="https://onlinedocs.microchip.com/oxy/GUID-F9D3C532-E5D3-4B0B-A493-339C2C2521E2-en-US-1/GUID-81017B70-4E02-4FFF-B4C9-F3CDAD416A32.html" target="_blank" rel="noopener">Microchip PCB layout checklist</a></li><li><a href="https://www.analog.com/en/resources/app-notes/an-136.html" target="_blank" rel="noopener">Analog Devices AN-136 power PCB stackups</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-5" class="topic" data-title="5. component placement, power integrity, decoupling, and grounding">
+      <div class="topic-heading">
+        <div class="topic-number">5</div>
+        <div>
+          <p class="eyebrow">Intermediate · Suggested study: 14–20 hours</p>
+          <h2>5. Component placement, power integrity, decoupling, and grounding</h2>
+          <p class="milestone"><strong>Milestone:</strong> Create a floorplan with short power loops, correct decoupling, and uninterrupted return paths.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Floorplan by function and current flow</h4><div>Place connectors and mechanical items first. Group power input, regulators, MCU, sensors, analog,
+drivers, and communication interfaces. Follow the signal and power path rather than filling empty space.</div></li><li><h4>Place critical parts before ordinary passives</h4><div>Place oscillators, switching-regulator loops, decoupling capacitors, analog references, termination
+resistors, and protection devices according to datasheet guidance. Then place less critical parts.</div></li><li><h4>Minimize the decoupling loop</h4><div>The capacitor, IC power pin, and ground return form a high-frequency current loop. Place the correct
+small ceramic capacitor close to the supply pin, with short and wide connections and a direct low-
+inductance ground path. Bulk capacitance serves slower load changes and belongs near the load or rail entry.</div></li><li><h4>Use a continuous ground reference</h4><div>For most beginner digital and mixed-signal boards, a solid ground plane is safer than splitting ground.
+Separate noisy and sensitive circuits primarily by placement and routing. Never route a fast signal over a
+plane gap without a deliberate return path.</div></li><li><h4>Control high-current and switching loops</h4><div>Identify the exact loop that carries pulsed current. Keep it compact, use sufficient copper, and keep it
+away from analog inputs, crystals, antennas, and connectors that can radiate noise.</div></li><li><h4>Place protection at the entry point</h4><div>ESD and surge components must intercept energy before it travels across the board. Place them beside the
+connector with a short path to the appropriate ground or chassis reference.</div></li><li><h4>Review thermal and assembly needs</h4><div>Leave copper and airflow for hot parts, keep heat-sensitive components away, respect courtyards, and
+provide probe access. A board that routes easily but cannot be soldered or tested is not a good layout.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c1">
+        <span>I can divide a board into functional blocks before detailed placement.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c2">
+        <span>I can identify the high-frequency decoupling loop around each IC supply pin.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c3">
+        <span>I can place bulk and local decoupling for different purposes.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c4">
+        <span>I can explain why a continuous ground plane normally gives a lower-impedance return path.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c5">
+        <span>I can locate and minimize a switching or motor-current loop.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c6">
+        <span>I can place ESD/protection components at connectors rather than deep inside the board.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t5-c7">
+        <span>I can review thermal spacing, polarity visibility, courtyard overlap, and probe access.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/images/analog-dialogue/en/studentzone/4-2017/5104-fig2.png?la=en" alt="IC supply model with local decoupling" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>IC supply model with local decoupling</strong><p>Trace and via impedance cause supply variation during fast current changes. The local capacitor supplies transient current close to the IC instead of forcing it through a long power path.</p>
+          <a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/images/analog-dialogue/en/studentzone/4-2017/5104-fig3.png?la=en" alt="Good and poor decoupling placement" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Good and poor decoupling placement</strong><p>The effective placement is the one with the smallest power–capacitor–ground loop. Geometric distance alone is insufficient if vias and traces create a long current path.</p>
+          <a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/images/analog-dialogue/en/volume-56/number-3/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs/449469-fig-03.svg?la=en" alt="Typical four-layer mixed-signal stackup" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Typical four-layer mixed-signal stackup</strong><p>An adjacent solid ground layer gives top-layer signals a clear reference and return path. The power layer and bottom signal layer complete a practical four-layer structure.</p>
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>An MCU has four VDD pins. Is one 0.1 µF capacitor on the opposite side of the board enough?</summary>
+          <div class="answer"><strong>Answer:</strong> Usually no. Follow the MCU datasheet; commonly each supply pin or supply
+group needs local high-frequency decoupling, plus bulk capacitance for the rail. Place capacitors close,
+minimize loop inductance, and use short ground vias. Do not invent values when the datasheet specifies them.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>Place these blocks: power connector, regulator, MCU, analog sensor input, motor driver, external connectors.</summary>
+          <div class="answer"><strong>Answer:</strong> Put external connectors at board edges. Place input protection and regulator
+near the power connector. Keep the motor driver and its high-current loop close to the motor/power
+connectors. Place the MCU centrally for routing. Put the analog front end near the sensor connector and
+away from the motor and switching nodes. Preserve a continuous ground reference.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>Should analog ground and digital ground always be split?</summary>
+          <div class="answer"><strong>Answer:</strong> No. A split can force return current to take a long path and create a larger
+radiating loop. For many mixed-signal boards, use one solid plane and separate noisy/sensitive areas by
+placement. Follow the converter or IC datasheet when it gives a specific grounding architecture.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>Where should a USB ESD array be placed?</summary>
+          <div class="answer"><strong>Answer:</strong> Immediately beside the USB connector, before the protected traces travel
+across the board. Keep the path from connector to protector and from protector to the chosen ground
+reference short and low inductance. Avoid stubs and preserve differential-pair geometry.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>A switching regulator is stable on a breadboard but noisy on the PCB. What layout areas should be checked first?</summary>
+          <div class="answer"><strong>Answer:</strong> Compare the layout with the regulator reference design. Inspect the hot
+switching loop, input capacitor placement, switch-node copper area, feedback routing, ground return,
+inductor/diode placement, and separation from sensitive signals. Component values alone cannot compensate
+for a poor power-stage layout.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://www.analog.com/en/resources/analog-dialogue/studentzone/studentzone-april-2017.html" target="_blank" rel="noopener">Analog Devices – Grounding and Decoupling, Part 2</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-are-the-basic-guidelines-for-layout-design-of-mixed-signal-pcbs.html" target="_blank" rel="noopener">Analog Devices – Mixed-Signal PCB Layout Guidelines</a></li><li><a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">Analog Devices – Successful PCB Grounding</a></li><li><a href="https://www.ti.com/lit/an/spma056/spma056.pdf" target="_blank" rel="noopener">TI TM4C129x System Design Guidelines</a></li><li><a href="https://onlinedocs.microchip.com/oxy/GUID-F9D3C532-E5D3-4B0B-A493-339C2C2521E2-en-US-1/GUID-81017B70-4E02-4FFF-B4C9-F3CDAD416A32.html" target="_blank" rel="noopener">Microchip PCB layout checklist</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-6" class="topic" data-title="6. routing, vias, copper zones, and return paths">
+      <div class="topic-heading">
+        <div class="topic-number">6</div>
+        <div>
+          <p class="eyebrow">Intermediate · Suggested study: 16–24 hours</p>
+          <h2>6. Routing, vias, copper zones, and return paths</h2>
+          <p class="milestone"><strong>Milestone:</strong> Route a two-layer board with justified widths, minimal loop area, and zero unexplained DRC violations.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Route by priority</h4><div>Route fixed and critical nets first: high-current paths, clocks, crystals, analog inputs, feedback,
+differential pairs, and timing-sensitive interfaces. Route ordinary GPIO later.</div></li><li><h4>Think in complete current loops</h4><div>Every signal has an outgoing path and a return path. At higher frequencies the return tends to follow
+the signal’s reference plane. A route is incomplete as an engineering decision until its return is understood.</div></li><li><h4>Keep references continuous</h4><div>Avoid routing fast signals across plane splits, slots, board cutouts, or gaps in copper. If a signal
+changes reference plane, provide a nearby return path such as a ground stitching via where appropriate.</div></li><li><h4>Use vias intentionally</h4><div>A via adds inductance, consumes routing space, and changes the reference structure. It is not inherently
+bad, but unnecessary transitions complicate current return and high-speed behavior.</div></li><li><h4>Route power for current and transient demand</h4><div>Use widths and via counts based on current, temperature, and transient needs. Avoid narrow neck-downs in
+otherwise wide power paths. Place multiple vias where current must move between layers.</div></li><li><h4>Use copper zones correctly</h4><div>Zones are useful for ground and power, but they can form isolated islands, narrow slivers, or accidental
+antenna-like shapes. Refill zones and inspect actual connectivity after every significant placement change.</div></li><li><h4>Prefer clarity over myths</h4><div>Forty-five-degree corners are readable and easy to edit, but corner angle is rarely the dominant issue on
+ordinary low-speed boards. Continuous reference, short critical paths, controlled loop area, correct width,
+and adequate clearance matter more.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c1">
+        <span>I can state the routing priority for my board before starting.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c2">
+        <span>I can identify the return path for every critical signal.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c3">
+        <span>I avoid routing fast signals across reference-plane gaps or cutouts.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c4">
+        <span>I can justify every layer change and place return vias when required.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c5">
+        <span>I can find narrow neck-downs in power paths and inadequate via arrays.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c6">
+        <span>I can refill and inspect copper zones for islands and unintended connections.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t6-c7">
+        <span>I can finish with zero unrouted nets and zero unexplained DRC errors.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/routing-complete.png" alt="Completed simple routing" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Completed simple routing</strong><p>The example uses front and back copper plus a via. It demonstrates layer transitions and the relationship between routed copper and the remaining ratsnest.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/zone-filled.png" alt="Filled ground zone" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Filled ground zone</strong><p>The zone connects same-net pads while clearing other nets. Thermal reliefs ease soldering, but the designer must still inspect narrow sections and disconnected islands.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/analog/en/landing-pages/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance/5450fig12.gif" alt="High-frequency return current follows the trace" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>High-frequency return current follows the trace</strong><p>The return current concentrates near the signal path because that minimizes loop inductance. A plane gap forces a detour, enlarging the loop and increasing coupling and radiation.</p>
+          <a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>Which should be routed first: LED GPIO, crystal traces, or an I²C line?</summary>
+          <div class="answer"><strong>Answer:</strong> Crystal traces first because oscillator nodes are sensitive and usually have
+strict placement and routing guidance. I²C follows, especially if long or externally connected. The LED
+GPIO is normally least critical. Always defer to the component datasheet.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>A fast signal crosses a slot in the ground plane. What is wrong?</summary>
+          <div class="answer"><strong>Answer:</strong> Its return current cannot stay under the trace and must detour around the
+slot or through a distant connection. This enlarges loop area and can increase EMI, crosstalk, and signal
+distortion. Reroute the signal over continuous reference copper or redesign the reference transition.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>A 1 A power route is 1 mm wide except for a 0.15 mm section between pads. Is the route effectively 1 mm wide?</summary>
+          <div class="answer"><strong>Answer:</strong> No. The narrow section is the electrical and thermal bottleneck. Reposition
+parts, widen the neck, use a polygon, or add parallel copper/vias as justified. Verify the whole path,
+including pads, vias, connectors, and return current.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>Why can a ground pour on a two-layer board still be poor?</summary>
+          <div class="answer"><strong>Answer:</strong> Signal tracks and component pads can cut it into narrow paths or islands.
+A visually large pour may not provide a continuous low-impedance return. Inspect filled geometry,
+highlight the GND net, remove islands, add stitching vias, and reroute traces that create barriers.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>Are 90° corners automatically defective?</summary>
+          <div class="answer"><strong>Answer:</strong> No. On ordinary low-speed boards they are rarely the main risk. Use 45°
+or arcs for clarity and controlled geometry, but prioritize reference continuity, impedance requirements,
+spacing, loop area, and manufacturability. At very high speed, model the complete interconnect rather than
+applying a corner myth in isolation.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">KiCad PCB Editor – routing, zones, and DRC</a></li><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">KiCad 10 Getting Started – PCB routing</a></li><li><a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">Analog Devices – Successful PCB Grounding</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">Analog Devices – Practical High-Speed PCB Layout</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener">IPC design standards</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-7" class="topic" data-title="7. signal integrity, differential pairs, emi, and esd">
+      <div class="topic-heading">
+        <div class="topic-number">7</div>
+        <div>
+          <p class="eyebrow">Intermediate → Advanced · Suggested study: 20–30 hours</p>
+          <h2>7. Signal integrity, differential pairs, EMI, and ESD</h2>
+          <p class="milestone"><strong>Milestone:</strong> Recognize high-speed risks, configure differential constraints, and review an interface using the device reference design.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Judge speed by edge rate</h4><div>A low clock frequency can still behave as a high-speed signal when rise and fall times are fast. When
+interconnect delay is no longer negligible compared with edge time, transmission-line behavior matters.</div></li><li><h4>Use the correct reference geometry</h4><div>Microstrip and stripline impedance depend on trace width, copper thickness, dielectric thickness,
+dielectric constant, and nearby reference planes. Ask the manufacturer for a controlled-impedance stackup.</div></li><li><h4>Route differential pairs as a system</h4><div>Maintain the specified differential impedance, spacing, reference plane, pair coupling, and allowable
+intra-pair skew. Keep the pair together through connectors and vias, and minimize uncoupled sections.</div></li><li><h4>Do not length-match without a requirement</h4><div>Length tuning is not a decorative step. Match only nets that have a timing or skew requirement, and use
+the allowed tolerance from the interface or component documentation. Excessive serpentine routing can add
+coupling and loss.</div></li><li><h4>Reduce crosstalk and emissions</h4><div>Increase spacing between unrelated fast signals, avoid long parallel runs, keep clocks away from board
+edges and sensitive analog nodes, and maintain compact current loops. Slower driver edges may help when
+the interface permits them.</div></li><li><h4>Design ESD paths, not just ESD parts</h4><div>A protection component works only with a short, low-inductance discharge path. Place it at the connector,
+avoid routing protected and unprotected traces together, and follow the protector’s layout example.</div></li><li><h4>Use reference designs carefully</h4><div>Copy critical placement and routing from the exact device evaluation board where possible. Confirm that
+your stackup, connector, package, and operating mode match; a reference layout is not universal.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c1">
+        <span>I understand why rise/fall time can matter more than clock frequency.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c2">
+        <span>I can identify the reference plane and stackup for a controlled-impedance trace.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c3">
+        <span>I can configure width, gap, and skew rules for a differential pair.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c4">
+        <span>I can explain when length matching is required and when it is unnecessary.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c5">
+        <span>I can identify crosstalk risks from long parallel routes and close spacing.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c6">
+        <span>I can place an ESD device with a short discharge path at the connector.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t7-c7">
+        <span>I can compare my layout with the exact component reference design and list differences.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/images/analog-dialogue/en/volume-39/number-3/articles/high-speed-printed-circuit-board-layout/high-speed-printed-circuit-board-layout_fig13.gif" alt="Microstrip transmission line" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Microstrip transmission line</strong><p>A surface trace references the plane beneath it. Width and dielectric height are part of the impedance, so arbitrary trace width cannot guarantee a target impedance.</p>
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/images/analog-dialogue/en/volume-39/number-3/articles/high-speed-printed-circuit-board-layout/high-speed-printed-circuit-board-layout_fig14.gif" alt="Stripline transmission line" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Stripline transmission line</strong><p>An internal trace is located between reference planes. The geometry offers shielding but requires a controlled multilayer stackup and accurate dielectric information.</p>
+          <a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">
+            <img src="https://www.analog.com/en/_/media/analog/en/landing-pages/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance/5450fig19.gif" alt="Return path forced around a plane cut" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Return path forced around a plane cut</strong><p>A trace crossing a cut forces the return current to take a long route, creating large loop antennas. The problem is the complete current path, not only the visible signal trace.</p>
+          <a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>A 1 MHz GPIO has a 1 ns rise time and runs across a long board. Is it automatically low speed?</summary>
+          <div class="answer"><strong>Answer:</strong> No. The 1 ns edge contains much higher-frequency energy than the 1 MHz
+repetition rate suggests. Compare interconnect delay with edge time and treat the route as a transmission
+line when delay is significant. Use the driver and receiver documentation or SI analysis for exact limits.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>What information is required before routing a 90 Ω USB differential pair?</summary>
+          <div class="answer"><strong>Answer:</strong> The manufacturer’s stackup, copper thickness, dielectric thickness and
+material, target differential impedance and tolerance, allowed width/gap, connector and IC pin geometry,
+via strategy, maximum skew or mismatch, ESD part layout, and any reference-design requirements.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>One member of a pair is made longer with a large serpentine beside the other member. Is this always good?</summary>
+          <div class="answer"><strong>Answer:</strong> No. It may reduce pin-to-pin length difference but create local crosstalk,
+loss, and uneven coupling. First improve placement and breakout. Tune only the necessary amount, use the
+EDA pair-skew tool, and respect minimum spacing within the serpentine.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>Can a differential pair cross a split plane because its currents cancel?</summary>
+          <div class="answer"><strong>Answer:</strong> Do not assume so. Real pairs have common-mode current, imbalance, connector
+discontinuities, and imperfect coupling. A continuous reference plane remains important. Follow the
+interface and device layout guidance, and avoid plane gaps under the pair.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>An interface passes functional testing but fails radiated-emissions testing. List first layout checks.</summary>
+          <div class="answer"><strong>Answer:</strong> Inspect clock and fast-edge loop areas, return-plane continuity, traces near
+board edges, cable/connector common-mode paths, decoupling loops, switching-regulator hot loops, shield or
+chassis connections, ESD placement, and long parallel routes. Passing functional tests does not demonstrate
+EMC compliance.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://www.ti.com/document-viewer/lit/html/SSZTCR1" target="_blank" rel="noopener">TI – Differential Pairs: What You Really Need to Know</a></li><li><a href="https://www.analog.com/en/resources/analog-dialogue/articles/high-speed-printed-circuit-board-layout.html" target="_blank" rel="noopener">Analog Devices – Practical High-Speed PCB Layout</a></li><li><a href="https://www.analog.com/en/resources/technical-articles/pcbs-layout-guidelines-for-rf--mixedsignal.html" target="_blank" rel="noopener">Analog Devices – RF and Mixed-Signal PCB Guidelines</a></li><li><a href="https://www.analog.com/en/resources/technical-articles/successful-pcb-grounding-with-mixedsignal-chips--follow-the-path-of-least-impedance.html" target="_blank" rel="noopener">Analog Devices – Successful PCB Grounding</a></li><li><a href="https://www.ipc.org/ipc-design-standards" target="_blank" rel="noopener">IPC design standards for high-speed and RF boards</a></li></ol>
+      </details>
+    </section>
+    
+    <section id="topic-8" class="topic" data-title="8. dfm/dfa, fabrication outputs, assembly, bring-up, and debugging">
+      <div class="topic-heading">
+        <div class="topic-number">8</div>
+        <div>
+          <p class="eyebrow">Intermediate · Suggested study: 16–24 hours plus fabrication</p>
+          <h2>8. DFM/DFA, fabrication outputs, assembly, bring-up, and debugging</h2>
+          <p class="milestone"><strong>Milestone:</strong> Order, assemble, and safely bring up a documented board revision.</p>
+        </div>
+      </div>
+
+      <details open class="lesson-block">
+        <summary>Theory: step-by-step beginner guide</summary>
+        <ol class="theory-list"><li><h4>Review for manufacturing and assembly</h4><div>Check board outline, holes, slots, edge clearances, solder-mask slivers, paste apertures, courtyard
+overlap, component orientation, polarity marks, fiducials, tooling needs, panel constraints, and parts
+that cannot be assembled by the chosen process.</div></li><li><h4>Run final consistency checks</h4><div>Update PCB from schematic, refill zones, run ERC and DRC, inspect schematic–PCB parity, review every
+waiver, and compare footprints with libraries. Zero unexplained errors is the target.</div></li><li><h4>Inspect mechanically</h4><div>Use 3D view and exported STEP where useful. Check connector access, enclosure interference, mounting
+holes, board edge, component height, cable bend space, and tool access. A 3D model is helpful but not a
+substitute for dimensioned mechanical drawings.</div></li><li><h4>Generate the right package</h4><div>Typical bare-board files include Gerber or another accepted fabrication format, drill files, board
+outline, and fabrication notes. Assembly may also require BOM, centroid/position file, assembly drawing,
+paste layers, polarity information, and approved substitutes.</div></li><li><h4>Verify outputs independently</h4><div>Open the generated Gerbers and drills in a viewer, not only in the PCB editor. Confirm layer alignment,
+mask, silkscreen, drill positions, outline, and that the fabrication folder contains the intended revision.</div></li><li><h4>Plan safe bring-up</h4><div>Before power: visual inspection, continuity and resistance checks, polarity check, and power-rail-to-ground
+short checks. First power with a current-limited bench supply where appropriate. Verify input current and
+power rails before fitting or enabling expensive devices.</div></li><li><h4>Debug systematically and feed back</h4><div>Separate power, clock/reset, programming, communication, and functional tests. Record measurements,
+failures, bodge wires, rework, and root causes. Convert lessons into schematic, footprint, rule, checklist,
+and test-point improvements for the next revision.</div></li></ol>
+      </details>
+
+      <details open class="lesson-block">
+        <summary>Exit criteria checklist</summary>
+        <div class="checklist"><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c1">
+        <span>I can complete a DFM/DFA review before generating outputs.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c2">
+        <span>I can obtain zero unexplained ERC/DRC and schematic-parity errors.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c3">
+        <span>I can inspect connector access, mounting, height, and enclosure constraints.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c4">
+        <span>I can generate Gerber, drill, BOM, position, and assembly documentation as required.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c5">
+        <span>I can view generated fabrication files independently.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c6">
+        <span>I have a written current-limited first-power and rail-verification procedure.</span></label><label class="check-row">
+        <input type="checkbox" class="progress-check" data-key="t8-c7">
+        <span>I can document rework and convert it into specific revision changes.</span></label></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Three sourced illustration examples</summary>
+        <p class="source-note">All illustrations are existing images hosted by the cited official sources; none are AI-generated. Internet access is required to load them.</p>
+        <div class="image-grid"><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/drc-errors.png" alt="DRC violations" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>DRC violations</strong><p>The checker identifies physical conflicts such as clearance and hole-clearance violations. Exclusions require engineering justification and should never be used to hide an unknown problem.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/raytracing.png" alt="3D mechanical inspection" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>3D mechanical inspection</strong><p>The 3D view helps reveal reversed parts, missing models, connector orientation, and rough mechanical conflicts. Critical dimensions still need drawings or STEP-based enclosure checks.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure><figure class="image-card">
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">
+            <img src="https://docs.kicad.org/10.0/en/getting_started_in_kicad/images/fabrication-outputs.png" alt="Gerber plot configuration" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span class="image-fallback">Image preview unavailable.<br>Open the official source.</span>
+          </a>
+          <figcaption><strong>Gerber plot configuration</strong><p>Copper, mask, silkscreen, outline, and optional paste layers must match the order. Generate files into a revision-controlled output folder and inspect them before upload.</p>
+          <a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">Official source ↗</a></figcaption>
+        </figure></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five exercises with detailed answers</summary>
+        <div class="exercise-list"><details class="exercise">
+          <summary><span>Exercise 1</span>List a minimum fabrication and assembly package for a two-layer SMT board.</summary>
+          <div class="answer"><strong>Answer:</strong> Fabrication: top/bottom copper, top/bottom solder mask, required silkscreen,
+Edge.Cuts/outline, plated and non-plated drill data as required, stackup/material notes, finished thickness,
+copper weight, finish, and revision. Assembly: BOM with MPNs and DNPs, centroid/position file, assembly
+drawing, paste layers or stencil data, polarity/orientation notes, and approved alternates.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 2</span>DRC reports copper too close to the board edge, but the manufacturer says it may be acceptable. What should you do?</summary>
+          <div class="answer"><strong>Answer:</strong> Obtain the manufacturer’s written rule for that exact feature and process.
+Prefer correcting the design. If an exception is necessary, document it in the design review and fabrication
+notes, configure a specific rule or exclusion, and avoid globally disabling the check.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 3</span>Describe a safe first-power sequence for a new 5 V board.</summary>
+          <div class="answer"><strong>Answer:</strong> Inspect assembly and polarity; check resistance from 5 V and each rail to
+ground; verify no solder bridges; set a bench supply to 5 V with a conservative current limit; power while
+watching current; stop on unexpected current or heating; measure all rails and reset/enable states; then
+connect the programmer and test one subsystem at a time.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 4</span>The 3.3 V rail is at 0.4 V and the supply current limit is active. What is the first debugging direction?</summary>
+          <div class="answer"><strong>Answer:</strong> Treat it as a short or overload. Power off. Measure resistance to ground,
+inspect for solder bridges and reversed parts, divide the rail by removing jumpers/ferrites or components,
+check regulator pinout and footprint, and use controlled current injection/thermal methods only if trained.
+Do not repeatedly increase the current limit.</div>
+        </details><details class="exercise">
+          <summary><span>Exercise 5</span>A board works only after a bodge wire is added. Is the project finished?</summary>
+          <div class="answer"><strong>Answer:</strong> It may be usable as a prototype, but the design is not finished. Record the
+wire endpoints, electrical reason, root cause, affected files, test result, and required revision. Update
+the schematic first, synchronize the PCB, re-run reviews, and mark the assembled board with its actual
+hardware revision.</div>
+        </details></div>
+      </details>
+
+      <details class="lesson-block">
+        <summary>Five reliable sources for further research</summary>
+        <ol class="sources"><li><a href="https://docs.kicad.org/10.0/en/pcbnew/pcbnew.html" target="_blank" rel="noopener">KiCad PCB Editor – DRC and fabrication outputs</a></li><li><a href="https://docs.kicad.org/10.0/en/getting_started_in_kicad/getting_started_in_kicad.html" target="_blank" rel="noopener">KiCad 10 Getting Started – 3D and fabrication</a></li><li><a href="https://docs.kicad.org/10.0/en/cli/cli.html" target="_blank" rel="noopener">KiCad CLI – Gerber, drill, position, STEP, and IPC outputs</a></li><li><a href="https://www.ipc.org/sites/default/files/documents/PCBA-Checklist.pdf" target="_blank" rel="noopener">IPC rigid PCBA checklist</a></li><li><a href="https://onlinedocs.microchip.com/oxy/GUID-F9D3C532-E5D3-4B0B-A493-339C2C2521E2-en-US-1/GUID-81017B70-4E02-4FFF-B4C9-F3CDAD416A32.html" target="_blank" rel="noopener">Microchip PCB layout checklist</a></li></ol>
+      </details>
+    </section>
+    
+
+<footer>
+Prepared as a self-contained learning page. External illustrations and references remain hosted by and attributed to their original official sources.
 </footer>
+</div>
+</main>
+</div>
 
 <script>
-(() => {
-  const storageKey = "pcb-roadmap-progress-v1";
-  const boxes = [...document.querySelectorAll(".complete-box")];
-  const progressBar = document.getElementById("progressBar");
-  const progressText = document.getElementById("progressText");
-
-  function loadProgress() {
-    let saved = {};
-    try { saved = JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch (_) {}
-    boxes.forEach(box => box.checked = Boolean(saved[box.dataset.topic]));
-    updateProgress();
-  }
-  function saveProgress() {
-    const saved = {};
-    boxes.forEach(box => saved[box.dataset.topic] = box.checked);
-    localStorage.setItem(storageKey, JSON.stringify(saved));
-    updateProgress();
-  }
-  function updateProgress() {
-    const done = boxes.filter(box => box.checked).length;
-    progressText.textContent = `${done} / ${boxes.length}`;
-    progressBar.style.width = `${(done / boxes.length) * 100}%`;
-  }
-  boxes.forEach(box => box.addEventListener("change", saveProgress));
-  loadProgress();
-
-  document.querySelectorAll(".answer-toggle").forEach(button => {
-    button.addEventListener("click", () => {
-      const answer = button.nextElementSibling;
-      const opening = answer.hidden;
-      answer.hidden = !opening;
-      button.textContent = opening ? "Hide answer" : "Show answer";
-      button.setAttribute("aria-expanded", String(opening));
-    });
-  });
-
-  const search = document.getElementById("search");
-  const topicsEls = [...document.querySelectorAll(".topic")];
-  const tocLinks = [...document.querySelectorAll(".toc a")];
-  const noResults = document.getElementById("noResults");
-  search.addEventListener("input", () => {
-    const q = search.value.trim().toLowerCase();
-    let visible = 0;
-    topicsEls.forEach((topic, i) => {
-      const show = !q || topic.textContent.toLowerCase().includes(q);
-      topic.style.display = show ? "" : "none";
-      tocLinks[i].style.display = show ? "" : "none";
-      if (show) visible++;
-    });
-    noResults.style.display = visible ? "none" : "block";
-  });
-})();
+const checks=[...document.querySelectorAll('.progress-check')];
+function loadChecks(){
+ checks.forEach(c=>c.checked=localStorage.getItem('pcb-'+c.dataset.key)==='1');
+ updateProgress();
+}
+function updateProgress(){
+ const done=checks.filter(c=>c.checked).length;
+ document.getElementById('progressText').textContent=`${done} / ${checks.length} completed`;
+ document.getElementById('progressBar').style.width=(checks.length?done/checks.length*100:0)+'%';
+}
+checks.forEach(c=>c.addEventListener('change',()=>{
+ localStorage.setItem('pcb-'+c.dataset.key,c.checked?'1':'0'); updateProgress();
+}));
+document.getElementById('resetBtn').addEventListener('click',()=>{
+ if(confirm('Reset all saved checklist progress?')){
+  checks.forEach(c=>{c.checked=false;localStorage.removeItem('pcb-'+c.dataset.key)});updateProgress();
+ }
+});
+document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('search').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase();
+ document.querySelectorAll('.topic').forEach(t=>{
+  t.classList.toggle('hidden-topic',q && !t.textContent.toLowerCase().includes(q));
+ });
+});
+const navLinks=[...document.querySelectorAll('[data-nav]')];
+const observer=new IntersectionObserver(entries=>{
+ const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+ if(visible){
+  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+visible.target.id));
+ }
+},{rootMargin:'-20% 0px -65% 0px',threshold:[0,.1,.3]});
+document.querySelectorAll('.topic').forEach(s=>observer.observe(s));
+loadChecks();
 </script>
 </body>
 </html>
